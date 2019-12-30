@@ -1,7 +1,9 @@
 package com.example.greapp;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import com.adriangl.overlayhelper.OverlayHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -9,6 +11,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import android.provider.Settings;
 import android.view.View;
+
+import androidx.annotation.RequiresApi;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,6 +29,7 @@ public class Home extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private OverlayHelper overlayHelper;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -47,12 +52,22 @@ public class Home extends AppCompatActivity {
 
         overlayHelper.startWatching();
 
-        overlayHelper.requestDrawOverlaysPermission(
-                Home.this,
-                "Request draw overlays permission?",
-                "You have to enable the draw overlays permission for this app to work",
-                "Enable",
-                "Cancel");
+        if (!Settings.canDrawOverlays(this)) {
+
+            overlayHelper.requestDrawOverlaysPermission(
+                    Home.this,
+                    "Request draw overlays permission?",
+                    "You have to enable the draw overlays permission for this app to work",
+                    "Enable",
+                    "Cancel");
+        } else {
+
+            registerReceiver(new UnlockTrigger(), new IntentFilter("android.intent.action.USER_PRESENT"));
+        }
+
+
+        startService(new Intent(this, BackService.class));
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,8 +86,7 @@ public class Home extends AppCompatActivity {
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send)
@@ -85,7 +99,6 @@ public class Home extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }

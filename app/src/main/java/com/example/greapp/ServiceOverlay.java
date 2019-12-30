@@ -1,15 +1,28 @@
 package com.example.greapp;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.IBinder;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+
 public class ServiceOverlay extends Service {
-    ServiceOverlayView mView;
+    Problem mView;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -19,8 +32,10 @@ public class ServiceOverlay extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Toast.makeText(getBaseContext(),"onCreate", Toast.LENGTH_LONG).show();
-        mView = new ServiceOverlayView(this);
+
+        mView = new Problem(this);
+        mView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+
         WindowManager.LayoutParams params = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             params = new WindowManager.LayoutParams(
@@ -39,23 +54,20 @@ public class ServiceOverlay extends Service {
         }
 
         params.gravity = Gravity.END | Gravity.TOP;
-        params.x = 0;
-        params.y = 100;
         WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-        //mView.setLayoutParams(params);
         wm.addView(mView, params);
     }
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Toast.makeText(getBaseContext(),"onDestroy", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getBaseContext(),"Please Allow this App to Run in Background", Toast.LENGTH_LONG).show();
         if(mView != null)
         {
             ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mView);
             mView = null;
         }
     }
-
 
 }

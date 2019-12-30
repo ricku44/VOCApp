@@ -13,10 +13,8 @@ public class UnlockTrigger extends BroadcastReceiver {
 
         KeyguardManager keyguardManager = (KeyguardManager)context.getSystemService(Context.KEYGUARD_SERVICE);
         if (keyguardManager.isKeyguardSecure()) {
-
-            Intent intent1 = new Intent(context,ServiceOverlay.class);
-            context.startActivity(intent1);
-
+            Intent i = new Intent(context,ServiceOverlay.class);
+            context.startService(i);
         }
     }
 
