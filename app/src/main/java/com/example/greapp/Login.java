@@ -91,7 +91,6 @@ public class Login extends AppCompatActivity implements TextWatcher {
 
         final Button login1 = findViewById(R.id.login1);
         final Button signup1 = findViewById(R.id.signin1);
-        Button button2 = custom_dialog.findViewById(R.id.resend);
         Button otp = findViewById(R.id.OTP);
         LoginButton loginButton = findViewById(R.id.buttonFacebookLogin);
 
@@ -157,7 +156,7 @@ public class Login extends AppCompatActivity implements TextWatcher {
 
         custom_dialog = new Dialog(this);
         custom_dialog.setContentView(R.layout.custom__dialog);
-
+        Button button2 = custom_dialog.findViewById(R.id.resend);
 
 
         editText_one = custom_dialog.findViewById(R.id.editTextone);

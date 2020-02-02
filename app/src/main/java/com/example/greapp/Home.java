@@ -2,32 +2,25 @@ package com.example.greapp;
 
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import com.adriangl.overlayhelper.OverlayHelper;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import android.provider.Settings;
-import android.util.DisplayMetrics;
-import android.view.View;
-
 import androidx.annotation.RequiresApi;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import com.google.android.material.navigation.NavigationView;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import android.view.Menu;
+
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Home extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
     private OverlayHelper overlayHelper;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -36,6 +29,8 @@ public class Home extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        changeStatusBarColor();
 
         overlayHelper = new OverlayHelper(this.getApplicationContext(), new OverlayHelper.OverlayPermissionChangedListener() {
             @Override public void onOverlayPermissionCancelled() {
@@ -70,45 +65,130 @@ public class Home extends AppCompatActivity {
         startService(new Intent(this, BackService.class));
 
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        final LinearLayout ll1 = findViewById(R.id.lll1);
+        final LinearLayout ll2 = findViewById(R.id.lll2);
+        final LinearLayout ll3 = findViewById(R.id.lll3);
+
+
+        final Button home = findViewById(R.id.home1);
+        final Button sett = findViewById(R.id.Setting1);
+        final Button noti = findViewById(R.id.notify1);
+
+        final TextView t1 = findViewById(R.id.t1);
+        final TextView t2 = findViewById(R.id.t2);
+        final TextView t3 = findViewById(R.id.t3);
+
+
+        final LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        p.weight = Float.parseFloat("1.2");
+
+        final LinearLayout.LayoutParams p2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        p2.weight = Float.parseFloat("0.8");
+
+
+        home.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                ll1.setBackground(getResources().getDrawable(R.drawable.circle_bg3));
+                ll2.setBackgroundResource(0);
+                ll3.setBackgroundResource(0);
 
-                Intent in = new Intent(getApplicationContext(),ServiceOverlay.class);
-                startService(in);
+               // ll1.setLayoutParams(p);
+               // ll2.setLayoutParams(p2);
+               // ll3.setLayoutParams(p2);
 
+                t1.setVisibility(View.VISIBLE);
+                t2.setVisibility(View.GONE);
+                t3.setVisibility(View.GONE);
 
+                home.setScaleX(Float.parseFloat("0.7"));
+                home.setScaleY(Float.parseFloat("1.2"));
+
+                sett.setScaleX(Float.parseFloat("0.3"));
+                sett.setScaleY(Float.parseFloat("0.9"));
+
+                noti.setScaleX(Float.parseFloat("0.3"));
+                noti.setScaleY(Float.parseFloat("0.9"));
+
+                home.setBackground(getResources().getDrawable(R.drawable.ic_home_black_24dp));
+                sett.setBackground(getResources().getDrawable(R.drawable.ic_settings_black_24dp));
+                noti.setBackground(getResources().getDrawable(R.drawable.ic_notifications_black_24dp));
             }
         });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
 
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+
+        sett.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ll2.setBackground(getResources().getDrawable(R.drawable.circle_bg3));
+                ll1.setBackgroundResource(0);
+                ll3.setBackgroundResource(0);
+
+
+                //ll1.setLayoutParams(p2);
+                //ll2.setLayoutParams(p);
+                //ll3.setLayoutParams(p2);
+
+                t2.setVisibility(View.VISIBLE);
+                t1.setVisibility(View.GONE);
+                t3.setVisibility(View.GONE);
+
+                sett.setScaleX(Float.parseFloat("0.7"));
+                sett.setScaleY(Float.parseFloat("1.2"));
+
+                home.setScaleX(Float.parseFloat("0.3"));
+                home.setScaleY(Float.parseFloat("0.9"));
+
+                noti.setScaleX(Float.parseFloat("0.3"));
+                noti.setScaleY(Float.parseFloat("0.9"));
+
+
+                home.setBackground(getResources().getDrawable(R.drawable.ic_home_black_24dp2));
+                sett.setBackground(getResources().getDrawable(R.drawable.ic_settings_black_24dp2));
+                noti.setBackground(getResources().getDrawable(R.drawable.ic_notifications_black_24dp));
+            }
+        });
+
+        noti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ll3.setBackground(getResources().getDrawable(R.drawable.circle_bg3));
+                ll2.setBackgroundResource(0);
+                ll1.setBackgroundResource(0);
+
+
+                //ll1.setLayoutParams(p2);
+                //ll2.setLayoutParams(p2);
+                //ll3.setLayoutParams(p);
+
+                t3.setVisibility(View.VISIBLE);
+                t2.setVisibility(View.GONE);
+                t1.setVisibility(View.GONE);
+
+                noti.setScaleX(Float.parseFloat("0.7"));
+                noti.setScaleY(Float.parseFloat("1.2"));
+
+                sett.setScaleX(Float.parseFloat("0.3"));
+                sett.setScaleY(Float.parseFloat("0.9"));
+
+                home.setScaleX(Float.parseFloat("0.3"));
+                home.setScaleY(Float.parseFloat("0.9"));
+
+
+                home.setBackground(getResources().getDrawable(R.drawable.ic_home_black_24dp2));
+                sett.setBackground(getResources().getDrawable(R.drawable.ic_settings_black_24dp));
+                noti.setBackground(getResources().getDrawable(R.drawable.ic_notifications_black_24dp2));
+            }
+        });
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+    private void changeStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.BLACK);
+        }
     }
 
     @Override

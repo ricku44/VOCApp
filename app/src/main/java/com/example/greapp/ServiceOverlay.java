@@ -62,7 +62,6 @@ public class ServiceOverlay extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //Toast.makeText(getBaseContext(),"Please Allow this App to Run in Background", Toast.LENGTH_LONG).show();
         if(mView != null)
         {
             ((WindowManager) getSystemService(WINDOW_SERVICE)).removeView(mView);
