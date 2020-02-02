@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login"
+    tools:context=".Login">
+
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/buttonFacebookLogin"
+        xmlns:facebook="http://schemas.android.com/apk/res-auto"
+        facebook:com_facebook_login_text=""
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:layout_marginStart="90sp"
+        android:layout_marginBottom="120sp"
+        android:layout_alignParentBottom="true" />
+
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/signInButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_marginStart="90sp"
+        android:layout_marginBottom="100sp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        app:buttonSize="icon_only"
+        app:colorScheme="dark"
+        android:layout_alignParentBottom="true" />
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:paddingTop="50sp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:paddingBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" >
+
+        <Button
+            android:id="@+id/login1"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:textAllCaps="false"
+            android:background="@drawable/textlines"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/signin1"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:background="@drawable/textlines2"
+            android:text="Signup"
+            android:layout_width="0dp"
+            android:textAllCaps="false"
+            android:textColor="#B5E4E4E4"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/ed1"
+        android:layout_margin="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16sp"
+        android:layout_below="@+id/ll1"
+        android:textColor="#FFFFFF"
+        android:maxLength="16"
+        android:hint=" Enter your mobile number"
+        android:textColorHint="#B5E4E4E4"
+        android:inputType="phone"
+        android:background="@drawable/circle_bg"/>
+
+    <Button
+        android:id="@+id/OTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll1"
+        android:text="Send OTP"
+        android:padding="15sp"
+        android:textSize="18dp"
+        android:layout_margin="39dp"
+        android:layout_alignParentRight="true"
+        android:textAllCaps="false"
+        android:background="@drawable/circle_bg2" />
+
+
+</RelativeLayout>

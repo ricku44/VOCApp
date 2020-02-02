@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "311522238902",
+    "firebase_url": "https://greapp-24fca.firebaseio.com",
+    "project_id": "greapp-24fca",
+    "storage_bucket": "greapp-24fca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311522238902:android:8c797679acb19b6db0a117",
+        "android_client_info": {
+          "package_name": "com.example.greapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "311522238902-0o241iqbmo4caklhr2fs1sg8q4rpr72d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.greapp",
+            "certificate_hash": "f62b59ce99caaae2d3310b06fbafea716c58407c"
+          }
+        },
+        {
+          "client_id": "311522238902-i9ui8jdu91u0ooaandtpaterbumfkbsr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_Ljvdb0xl3GArgV5M86RH10hB1BTPe2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "311522238902-i9ui8jdu91u0ooaandtpaterbumfkbsr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

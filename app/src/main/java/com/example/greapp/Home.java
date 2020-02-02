@@ -10,6 +10,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;

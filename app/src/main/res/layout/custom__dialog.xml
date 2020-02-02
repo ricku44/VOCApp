@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="220dp"
+    android:layout_height="200dp"
+    android:background="#BA030000"
+    android:orientation="vertical">
+
+        <LinearLayout
+
+            android:id="@+id/layout_header"
+            android:layout_width="match_parent"
+            android:layout_height="44sp"
+            android:background="#8A000000">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="44sp"
+                android:gravity="center"
+                android:text="Enter One Time Password"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_otp"
+            android:layout_width="match_parent"
+            android:layout_height="80sp"
+            android:layout_below="@+id/layout_header"
+            android:paddingTop="10dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextone"
+                android:layout_width="40sp"
+                android:layout_height="42sp"
+                android:inputType="numberPassword"
+                android:maxLength="1"
+                android:textColor="#ffffff"
+                android:nextFocusRight="@+id/editText_two">
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/editTexttwo"
+                android:layout_width="40sp"
+                android:layout_height="42sp"
+                android:textColor="#ffffff"
+
+                android:inputType="numberPassword"
+                android:maxLength="1"/>
+
+            <EditText
+                android:id="@+id/editTextthree"
+                android:layout_width="40sp"
+                android:layout_height="42sp"
+                android:textColor="#ffffff"
+
+                android:inputType="numberPassword"
+                android:maxLength="1"/>
+
+            <EditText
+                android:id="@+id/editTextfour"
+                android:layout_width="40sp"
+                android:layout_height="42sp"
+                android:textColor="#ffffff"
+
+                android:inputType="numberPassword"
+                android:maxLength="1"/>
+
+            <EditText
+                android:id="@+id/editTextfive"
+                android:layout_width="40sp"
+                android:layout_height="42sp"
+                android:inputType="numberPassword"
+                android:textColor="#ffffff"
+
+                android:maxLength="1"/>
+
+            <EditText
+                android:id="@+id/editTextsix"
+                android:layout_width="40sp"
+                android:textColor="#ffffff"
+
+                android:layout_height="42sp"
+                android:inputType="numberPassword"
+                android:maxLength="1"/>
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/resend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:textSize="12sp"
+            android:textColor="#ED00127A"
+            android:text="Resend Code"/>
+
+        <Button
+            android:id="@+id/button1"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="42sp"
+            android:layout_below="@+id/layout_otp"
+            android:background="@drawable/circle_bg2"
+            android:text="SUBMIT" />
+
+
+</LinearLayout>

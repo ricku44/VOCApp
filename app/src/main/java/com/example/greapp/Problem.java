@@ -2,10 +2,13 @@ package com.example.greapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Problem extends LinearLayout {
@@ -56,8 +59,8 @@ public class Problem extends LinearLayout {
 
         View view = inflater.inflate(R.layout.overlay, null);
 
-        Button op1 = view.findViewById(R.id.btn1);
-        final Button op5 = view.findViewById(R.id.btn5);
+        final Button op1 = view.findViewById(R.id.btn1);
+        final TextView t1 = view.findViewById(R.id.txt1);
 
         op1.setOnClickListener(new OnClickListener() {
             @Override
@@ -72,8 +75,8 @@ public class Problem extends LinearLayout {
         op2.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                op5.setVisibility(VISIBLE);
-                op5.setText("Correct A");
+                op1.setTextColor(Color.RED);
+                t1.setTextColor(Color.RED);
             }
         });
 
@@ -82,8 +85,8 @@ public class Problem extends LinearLayout {
         op3.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                op5.setVisibility(VISIBLE);
-                op5.setText("Correct A");
+                op1.setTextColor(Color.RED);
+                t1.setTextColor(Color.RED);
             }
         });
 
@@ -92,8 +95,8 @@ public class Problem extends LinearLayout {
         op4.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                op5.setVisibility(VISIBLE);
-                op5.setText("Correct A");
+                op1.setTextColor(Color.RED);
+                t1.setTextColor(Color.RED);
             }
         });
 
