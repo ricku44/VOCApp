@@ -30,6 +30,8 @@ public class Problem extends LinearLayout {
     String j;
     Button[] btn = new Button[4];
 
+
+    boolean io = true;
     int prog = 1;
 
     Question que;
@@ -115,7 +117,7 @@ public class Problem extends LinearLayout {
 
         t1 = new TextToSpeech(context, status -> {
             if (status != TextToSpeech.ERROR) {
-                t1.setLanguage(Locale.UK);
+                t1.setLanguage(Locale.US);
             }
         });
 
@@ -155,7 +157,10 @@ public class Problem extends LinearLayout {
 
             btn[arr[3]].setText(que.getAnswers());
 
-            speak();
+            if(io)
+                speak();
+            else
+                t1.speak("", TextToSpeech.QUEUE_FLUSH, null);
 
         });
 
@@ -307,7 +312,14 @@ public class Problem extends LinearLayout {
 
         vic.setOnClickListener(v -> {
 
-            speak();
+            if(io){
+                t1.speak("", TextToSpeech.QUEUE_FLUSH, null);
+                io=false;
+            }
+            else {
+                speak();
+                io=true;
+            }
 
         });
 
@@ -316,8 +328,8 @@ public class Problem extends LinearLayout {
 
 
     void speak(){
-        t1.speak("Please provide the answer to the Question that Follows as", TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(500, TextToSpeech.QUEUE_ADD, null);
+        t1.speak("Please provide the answer to the Question that Follows ass", TextToSpeech.QUEUE_FLUSH, null);
+        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
 
         String xyz = txt.getText().toString().replaceFirst("_","Dash");
         xyz = xyz.replace("_","");
@@ -326,27 +338,27 @@ public class Problem extends LinearLayout {
 
 
 
-        t1.playSilence(500, TextToSpeech.QUEUE_ADD, null);
+        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
 
         t1.speak("Option one", TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(500, TextToSpeech.QUEUE_ADD, null);
+        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
 
         t1.speak(btn[0].getText().toString(), TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(500, TextToSpeech.QUEUE_ADD, null);
+        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
 
 
         t1.speak("Option Two", TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(500, TextToSpeech.QUEUE_ADD, null);
+        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
         t1.speak(btn[1].getText().toString(), TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(500, TextToSpeech.QUEUE_ADD, null);
+        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
 
         t1.speak("Option Three", TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(500, TextToSpeech.QUEUE_ADD, null);
+        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
         t1.speak(btn[2].getText().toString(), TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(500, TextToSpeech.QUEUE_ADD, null);
+        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
 
         t1.speak("Option Four", TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(500, TextToSpeech.QUEUE_ADD, null);
+        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
         t1.speak(btn[3].getText().toString(), TextToSpeech.QUEUE_ADD, null);
     }
 
