@@ -75,13 +75,14 @@
         android:layout_margin="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16sp"
+        android:padding="16dp"
         android:layout_below="@+id/ll1"
         android:textColor="#FFFFFF"
         android:maxLength="16"
         android:hint=" Enter your mobile number"
         android:textColorHint="#B5E4E4E4"
         android:inputType="phone"
+        android:textSize="16dp"
         android:background="@drawable/circle_bg"/>
 
     <Button
@@ -90,12 +91,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll1"
         android:text="Send OTP"
-        android:padding="15sp"
-        android:textSize="18dp"
-        android:layout_margin="39dp"
+        android:padding="16sp"
+        android:textSize="16dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="42dp"
         android:layout_alignParentRight="true"
         android:textAllCaps="false"
-        android:background="@drawable/circle_bg2" />
+        android:background="@drawable/circle_bg0" />
 
 
 </RelativeLayout>

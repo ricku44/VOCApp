@@ -29,6 +29,7 @@ public class ServiceOverlay extends Service {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate() {
         super.onCreate();

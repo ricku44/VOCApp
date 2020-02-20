@@ -1,16 +1,21 @@
 package com.example.greapp;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import com.adriangl.overlayhelper.OverlayHelper;
 import android.provider.Settings;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.MotionEvent;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,9 +24,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class Home extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+
+    private ArrayList<GradientDrawable> clrs = new ArrayList<>();
+    private ArrayList<String> ids = new ArrayList<>();
+    private ArrayList<String> texts = new ArrayList<>();
+    private ArrayList<String> btns = new ArrayList<>();
     private OverlayHelper overlayHelper;
+    private UnlockTrigger unlockTrigger;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -30,7 +44,17 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        GradientDrawable gd = new GradientDrawable(
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[] {0xFF181d27,0xFF0c0c0c});
+        gd.setCornerRadius(0f);
+
+        getWindow().getDecorView().setBackground(gd);
+
+
         changeStatusBarColor();
+
+        isWriteStoragePermissionGranted();
 
         overlayHelper = new OverlayHelper(this.getApplicationContext(), new OverlayHelper.OverlayPermissionChangedListener() {
             @Override public void onOverlayPermissionCancelled() {
@@ -58,7 +82,8 @@ public class Home extends AppCompatActivity {
                     "Cancel");
         } else {
 
-            registerReceiver(new UnlockTrigger(), new IntentFilter("android.intent.action.USER_PRESENT"));
+            unlockTrigger = new UnlockTrigger();
+            registerReceiver(unlockTrigger, new IntentFilter("android.intent.action.USER_PRESENT"));
         }
 
 
@@ -79,109 +104,208 @@ public class Home extends AppCompatActivity {
         final TextView t3 = findViewById(R.id.t3);
 
 
-        final LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        p.weight = Float.parseFloat("1.2");
+        float scale = getResources().getDisplayMetrics().density;
+        int dpAsPixels = (int) (20*scale + 0.5f);
+        int dpAsPixels2 = (int) (10*scale + 0.5f);
 
-        final LinearLayout.LayoutParams p2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        p2.weight = Float.parseFloat("0.8");
+        home.setOnClickListener(v -> {
+            ll1.setBackground(getResources().getDrawable(R.drawable.circle_bg3));
+            ll2.setBackground(getResources().getDrawable(R.drawable.circle_bg4));
+            ll3.setBackground(getResources().getDrawable(R.drawable.circle_bg4));
 
+            ll1.setPadding(dpAsPixels,dpAsPixels2,dpAsPixels,dpAsPixels2);
+            //ll2.setPadding(0,dpAsPixels,0,dpAsPixels);
+            //ll3.setPadding(0,dpAsPixels,0,dpAsPixels);
 
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ll1.setBackground(getResources().getDrawable(R.drawable.circle_bg3));
-                ll2.setBackgroundResource(0);
-                ll3.setBackgroundResource(0);
+            t1.setVisibility(View.VISIBLE);
+            t2.setVisibility(View.GONE);
+            t3.setVisibility(View.GONE);
 
-               // ll1.setLayoutParams(p);
-               // ll2.setLayoutParams(p2);
-               // ll3.setLayoutParams(p2);
+            home.setScaleX(Float.parseFloat("0.7"));
+            home.setScaleY(Float.parseFloat("1.2"));
 
-                t1.setVisibility(View.VISIBLE);
-                t2.setVisibility(View.GONE);
-                t3.setVisibility(View.GONE);
+            sett.setScaleX(Float.parseFloat("0.3"));
+            sett.setScaleY(Float.parseFloat("0.9"));
 
-                home.setScaleX(Float.parseFloat("0.7"));
-                home.setScaleY(Float.parseFloat("1.2"));
+            noti.setScaleX(Float.parseFloat("0.3"));
+            noti.setScaleY(Float.parseFloat("0.9"));
 
-                sett.setScaleX(Float.parseFloat("0.3"));
-                sett.setScaleY(Float.parseFloat("0.9"));
-
-                noti.setScaleX(Float.parseFloat("0.3"));
-                noti.setScaleY(Float.parseFloat("0.9"));
-
-                home.setBackground(getResources().getDrawable(R.drawable.ic_home_black_24dp));
-                sett.setBackground(getResources().getDrawable(R.drawable.ic_settings_black_24dp));
-                noti.setBackground(getResources().getDrawable(R.drawable.ic_notifications_black_24dp));
-            }
+            home.setBackground(getResources().getDrawable(R.drawable.ic_home_black_24dp));
+            sett.setBackground(getResources().getDrawable(R.drawable.ic_settings_black_24dp));
+            noti.setBackground(getResources().getDrawable(R.drawable.ic_notifications_black_24dp));
         });
 
 
-        sett.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ll2.setBackground(getResources().getDrawable(R.drawable.circle_bg3));
-                ll1.setBackgroundResource(0);
-                ll3.setBackgroundResource(0);
+        sett.setOnClickListener(v -> {
+            ll2.setBackground(getResources().getDrawable(R.drawable.circle_bg3));
+            ll1.setBackground(getResources().getDrawable(R.drawable.circle_bg4));
+            ll3.setBackground(getResources().getDrawable(R.drawable.circle_bg4));
 
 
-                //ll1.setLayoutParams(p2);
-                //ll2.setLayoutParams(p);
-                //ll3.setLayoutParams(p2);
-
-                t2.setVisibility(View.VISIBLE);
-                t1.setVisibility(View.GONE);
-                t3.setVisibility(View.GONE);
-
-                sett.setScaleX(Float.parseFloat("0.7"));
-                sett.setScaleY(Float.parseFloat("1.2"));
-
-                home.setScaleX(Float.parseFloat("0.3"));
-                home.setScaleY(Float.parseFloat("0.9"));
-
-                noti.setScaleX(Float.parseFloat("0.3"));
-                noti.setScaleY(Float.parseFloat("0.9"));
+            ll2.setPadding(dpAsPixels,dpAsPixels2,dpAsPixels,dpAsPixels2);
+            //ll1.setPadding(0,dpAsPixels,0,dpAsPixels);
+            //ll3.setPadding(0,dpAsPixels,0,dpAsPixels);
 
 
-                home.setBackground(getResources().getDrawable(R.drawable.ic_home_black_24dp2));
-                sett.setBackground(getResources().getDrawable(R.drawable.ic_settings_black_24dp2));
-                noti.setBackground(getResources().getDrawable(R.drawable.ic_notifications_black_24dp));
-            }
+            t2.setVisibility(View.VISIBLE);
+            t1.setVisibility(View.GONE);
+            t3.setVisibility(View.GONE);
+
+            sett.setScaleX(Float.parseFloat("0.7"));
+            sett.setScaleY(Float.parseFloat("1.2"));
+
+            home.setScaleX(Float.parseFloat("0.3"));
+            home.setScaleY(Float.parseFloat("0.9"));
+
+            noti.setScaleX(Float.parseFloat("0.3"));
+            noti.setScaleY(Float.parseFloat("0.9"));
+
+
+            home.setBackground(getResources().getDrawable(R.drawable.ic_home_black_24dp2));
+            sett.setBackground(getResources().getDrawable(R.drawable.ic_settings_black_24dp2));
+            noti.setBackground(getResources().getDrawable(R.drawable.ic_notifications_black_24dp));
         });
 
-        noti.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ll3.setBackground(getResources().getDrawable(R.drawable.circle_bg3));
-                ll2.setBackgroundResource(0);
-                ll1.setBackgroundResource(0);
+        noti.setOnClickListener(v -> {
+            ll3.setBackground(getResources().getDrawable(R.drawable.circle_bg3));
+            ll2.setBackground(getResources().getDrawable(R.drawable.circle_bg4));
+            ll1.setBackground(getResources().getDrawable(R.drawable.circle_bg4));
 
 
-                //ll1.setLayoutParams(p2);
-                //ll2.setLayoutParams(p2);
-                //ll3.setLayoutParams(p);
-
-                t3.setVisibility(View.VISIBLE);
-                t2.setVisibility(View.GONE);
-                t1.setVisibility(View.GONE);
-
-                noti.setScaleX(Float.parseFloat("0.7"));
-                noti.setScaleY(Float.parseFloat("1.2"));
-
-                sett.setScaleX(Float.parseFloat("0.3"));
-                sett.setScaleY(Float.parseFloat("0.9"));
-
-                home.setScaleX(Float.parseFloat("0.3"));
-                home.setScaleY(Float.parseFloat("0.9"));
+            ll3.setPadding(dpAsPixels,dpAsPixels2,dpAsPixels,dpAsPixels2);
+            //ll2.setPadding(0,dpAsPixels,0,dpAsPixels);
+            //ll1.setPadding(0,dpAsPixels,0,dpAsPixels);
 
 
-                home.setBackground(getResources().getDrawable(R.drawable.ic_home_black_24dp2));
-                sett.setBackground(getResources().getDrawable(R.drawable.ic_settings_black_24dp));
-                noti.setBackground(getResources().getDrawable(R.drawable.ic_notifications_black_24dp2));
-            }
+            t3.setVisibility(View.VISIBLE);
+            t2.setVisibility(View.GONE);
+            t1.setVisibility(View.GONE);
+
+            noti.setScaleX(Float.parseFloat("0.7"));
+            noti.setScaleY(Float.parseFloat("1.2"));
+
+            sett.setScaleX(Float.parseFloat("0.3"));
+            sett.setScaleY(Float.parseFloat("0.9"));
+
+            home.setScaleX(Float.parseFloat("0.3"));
+            home.setScaleY(Float.parseFloat("0.9"));
+
+
+            home.setBackground(getResources().getDrawable(R.drawable.ic_home_black_24dp2));
+            sett.setBackground(getResources().getDrawable(R.drawable.ic_settings_black_24dp));
+            noti.setBackground(getResources().getDrawable(R.drawable.ic_notifications_black_24dp2));
         });
+
+
+        getImages();
+
 
     }
+
+
+    private void getImages(){
+        Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
+
+        ArrayList<GradientDrawable> gdx = new ArrayList<>();
+
+
+        gdx.add(new GradientDrawable(
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[] {0x779c3636,0x77a12323}));
+
+        gdx.add(new GradientDrawable(
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[] {0x772d59be,0x772d59be}));
+
+        gdx.add(new GradientDrawable(
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[] {0x7739c450,0x7734b349}));
+
+        gdx.add(new GradientDrawable(
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[] {0x77eaf03a,0x77dbe036}));
+
+
+        gdx.get(0).setCornerRadius(50f);
+        gdx.get(1).setCornerRadius(50f);
+        gdx.get(2).setCornerRadius(50f);
+        gdx.get(3).setCornerRadius(50f);
+
+        ids.add("01.");
+        texts.add("Quick Puzzle");
+        btns.add("Play Now");
+        clrs.add(gdx.get(0));
+
+        ids.add("02.");
+        texts.add("Easy Mode");
+        btns.add("Play Now");
+        clrs.add(gdx.get(1));
+
+        ids.add("03.");
+        texts.add("Fun Mode");
+        btns.add("Play Now");
+        clrs.add(gdx.get(2));
+
+        ids.add("04.");
+        texts.add("Hard Mode");
+        btns.add("Play Now");
+        clrs.add(gdx.get(3));
+
+        ids.add("01.");
+        texts.add("Quick Puzzle");
+        btns.add("Play Now");
+        clrs.add(gdx.get(0));
+
+        ids.add("02.");
+        texts.add("Easy Mode");
+        btns.add("Play Now");
+        clrs.add(gdx.get(1));
+
+        ids.add("03.");
+        texts.add("Fun Mode");
+        btns.add("Play Now");
+        clrs.add(gdx.get(2));
+
+        ids.add("04.");
+        texts.add("Hard Mode");
+        btns.add("Play Now");
+        clrs.add(gdx.get(3));
+
+        ids.add("01.");
+        texts.add("Quick Puzzle");
+        btns.add("Play Now");
+        clrs.add(gdx.get(0));
+
+        ids.add("02.");
+        texts.add("Easy Mode");
+        btns.add("Play Now");
+        clrs.add(gdx.get(1));
+
+        ids.add("03.");
+        texts.add("Fun Mode");
+        btns.add("Play Now");
+        clrs.add(gdx.get(2));
+
+        ids.add("04.");
+        texts.add("Hard Mode");
+        btns.add("Play Now");
+        clrs.add(gdx.get(3));
+
+        initRecyclerView();
+
+    }
+
+
+    private void initRecyclerView(){
+        Log.d(TAG, "initRecyclerView: init recyclerview");
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(layoutManager);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, ids, texts, btns, clrs);
+        recyclerView.setAdapter(adapter);
+    }
+
 
     private void changeStatusBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -200,9 +324,56 @@ public class Home extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+
+        if(unlockTrigger!=null)
+            unregisterReceiver(unlockTrigger);
+
+        startService(new Intent(this, BackService.class));
         super.onDestroy();
-        overlayHelper.stopWatching();
+
+
     }
+
+    @Override
+    public void onPause() {
+
+        //unregisterReceiver(unlockTrigger);
+
+        startService(new Intent(this, BackService.class));
+        super.onPause();
+
+
+
+    }
+
+    @Override
+    public void onStop() {
+        //unregisterReceiver(unlockTrigger);
+
+        startService(new Intent(this, BackService.class));
+        super.onStop();
+
+
+
+    }
+
+
+    public void isWriteStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG,"Permission is granted2");
+            } else {
+
+                Log.v(TAG,"Permission is revoked2");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG,"Permission is granted2");
+        }
+    }
+
 
 
 }

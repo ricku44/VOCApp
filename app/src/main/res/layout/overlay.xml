@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
     android:id="@+id/llayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,16 +39,23 @@
             android:text="Quick Puzzle"
             android:textColor="#ffffff" />
 
+        <Button
+            android:id="@+id/voice"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="50dp"
+            android:background="@drawable/ic_hearing_black_24dp" />
+
         <TextView
             android:id="@+id/que"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="240sp"
             android:layout_below="@+id/Quick"
             android:layout_margin="50dp"
             android:text="A parent may decide to ________ a baby with a pacifier."
             android:textColor="#ffffff"
-            android:textSize="45sp"
-            android:typeface="serif" />
+            android:textSize="25dp" />
 
 
         <Button
@@ -57,8 +65,11 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:singleLine="true"
+            android:gravity="start"
             android:text="erudite"
-            android:textSize="35sp"
+            android:textSize="25dp"
             android:textColor="#ffffff" />
 
         <TextView
@@ -66,8 +77,8 @@
             android:layout_below="@+id/que"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:padding="30sp"
+            android:layout_marginStart="75dp"
+            android:padding="25sp"
             android:textSize="15sp"
             android:textColor="#ffffff"
             android:text="01." />
@@ -80,7 +91,10 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="35sp"
+            android:gravity="start"
+            android:textAllCaps="false"
+            android:singleLine="true"
+            android:textSize="25dp"
             android:text="prodigal"
             android:textColor="#ffffff" />
 
@@ -89,9 +103,9 @@
             android:layout_below="@+id/btn1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="75dp"
             android:typeface="serif"
-            android:padding="30sp"
+            android:padding="25sp"
             android:textSize="15sp"
             android:textColor="#ffffff"
             android:text="02." />
@@ -103,8 +117,11 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:textSize="25dp"
+            android:textAllCaps="false"
+            android:singleLine="true"
             android:text="placate"
+            android:gravity="start"
             android:textColor="#ffffff" />
 
         <TextView
@@ -113,8 +130,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:typeface="serif"
-            android:layout_marginStart="100dp"
-            android:padding="30sp"
+            android:layout_marginStart="75dp"
+            android:padding="25sp"
             android:textSize="15sp"
             android:textColor="#ffffff"
             android:text="03." />
@@ -126,7 +143,10 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:gravity="start"
+            android:textAllCaps="false"
+            android:singleLine="true"
+            android:textSize="25dp"
             android:text="fervid"
             android:textColor="#ffffff" />
 
@@ -135,15 +155,16 @@
             android:layout_below="@+id/btn3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="75dp"
             android:typeface="serif"
-            android:padding="30sp"
+            android:padding="25sp"
             android:textSize="15sp"
             android:textColor="#ffffff"
             android:text="04." />
 
 
         <Button
+            android:id="@+id/skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.Button.Borderless"
@@ -151,9 +172,28 @@
             android:layout_marginTop="30dp"
             android:layout_marginStart="10dp"
             android:textSize="15sp"
+            android:textAllCaps="false"
             android:textColor="#ffffff"
             android:layout_marginBottom="20dp"
             android:layout_below="@+id/btn4"/>
+
+        <com.example.greapp.ProgressWheel
+            android:id="@+id/pw_spinner"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/btn4"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            ProgressWheel:pwText="1/5"
+            ProgressWheel:pwTextColor="#FFFFFF"
+            ProgressWheel:pwTextSize="17sp"
+            ProgressWheel:pwRimColor="#FFFFFF"
+            ProgressWheel:pwBarLength="60dp"
+            ProgressWheel:pwBarColor="#FFFFFF"
+            ProgressWheel:pwBarWidth="5dp"
+            ProgressWheel:pwRimWidth="0dp" />
 
     </RelativeLayout>
 
