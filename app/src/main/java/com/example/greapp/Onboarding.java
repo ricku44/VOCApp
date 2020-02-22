@@ -65,23 +65,15 @@ public class Onboarding extends AppCompatActivity {
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        btnSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnSkip.setOnClickListener(v -> launchHomeScreen());
+
+        btnNext.setOnClickListener(v -> {
+
+            int current = getItem(+1);
+            if (current < layouts.length) {
+                viewPager.setCurrentItem(current);
+            } else {
                 launchHomeScreen();
-            }
-        });
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                int current = getItem(+1);
-                if (current < layouts.length) {
-                    viewPager.setCurrentItem(current);
-                } else {
-                    launchHomeScreen();
-                }
             }
         });
     }
@@ -111,7 +103,7 @@ public class Onboarding extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(getApplicationContext(), Login.class));
+        startActivity(new Intent(getApplicationContext(), Login.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
         finish();
     }
 

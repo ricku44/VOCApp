@@ -9,17 +9,19 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:screenOrientation="portrait"
+        android:launchMode="singleInstance"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Profile"></activity>
         <activity android:name=".Onboarding" />
         <activity android:name=".Login" />
         <activity android:name=".SplashScreen">
@@ -32,11 +34,9 @@
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <service android:name=".ServiceOverlay" />
-
         <service
             android:name=".BackService"
             android:exported="false" />

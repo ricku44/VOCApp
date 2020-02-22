@@ -1,6 +1,7 @@
 package com.example.greapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,8 +31,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     public RecyclerViewAdapter(Context context, ArrayList<String> iDs,
-             ArrayList<String> texTs,
-             ArrayList<String> butTons, ArrayList<GradientDrawable> clRs) {
+                               ArrayList<String> texTs,
+                               ArrayList<String> butTons, ArrayList<GradientDrawable> clRs) {
         ids = iDs;
         texts = texTs;
         buttons = butTons;
@@ -38,6 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         mContext = context;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -53,6 +56,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
+
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
@@ -60,13 +64,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         if(holder.getItemViewType()==0) {
             Log.d("c","c");
         }
-        else{
-            holder.crdv.setBackground(clrs.get(position-1));
-            holder.txtid.setText(ids.get(position-1));
-            holder.txttext.setText(texts.get(position-1));
-            holder.btnbtn.setText(buttons.get(position-1));
-        }
+        else {
+            holder.crdv.setBackground(clrs.get(position - 1));
+            holder.txtid.setText(ids.get(position - 1));
+            holder.txttext.setText(texts.get(position - 1));
+            holder.btnbtn.setText(buttons.get(position - 1));
 
+
+            holder.itemView.setOnClickListener(view -> {
+                Intent i = new Intent(mContext, ServiceOverlay.class);
+                mContext.startService(i);
+            });
+        }
     }
 
     @Override
@@ -82,13 +91,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return ids.size()+1;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView txtid, txttext;
         Button btnbtn;
         CardView crdv;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             txtid = itemView.findViewById(R.id.ids);
             txttext = itemView.findViewById(R.id.names);

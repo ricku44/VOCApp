@@ -328,7 +328,7 @@ public class Problem extends LinearLayout {
 
 
     void speak(){
-        t1.speak("Please provide the answer to the Question that Follows ass", TextToSpeech.QUEUE_FLUSH, null);
+        t1.speak("Please provide the answer to the Question that Follows as", TextToSpeech.QUEUE_FLUSH, null);
         t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
 
         String xyz = txt.getText().toString().replaceFirst("_","Dash");

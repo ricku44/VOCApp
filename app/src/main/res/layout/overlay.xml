@@ -52,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="240sp"
             android:layout_below="@+id/Quick"
+            android:gravity="center_vertical"
             android:layout_margin="50dp"
             android:text="A parent may decide to ________ a baby with a pacifier."
             android:textColor="#ffffff"
