@@ -9,6 +9,7 @@
         android:id="@+id/post_card_view"
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
         android:layout_height="400dp"
         app:cardMaxElevation="40dp"
         app:cardElevation="20dp"
@@ -16,7 +17,7 @@
 
 
         <RelativeLayout
-            android:padding="30dp"
+            android:padding="20sp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -31,7 +32,7 @@
                 android:focusable="false"
                 android:gravity="start"
                 android:textColor="#fff"
-                android:textSize="50dp" />
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/names"
@@ -44,7 +45,7 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:textColor="#fff"
-                android:textSize="50dp" />
+                android:textSize="40sp" />
 
             <Button
                 android:id="@+id/btns"

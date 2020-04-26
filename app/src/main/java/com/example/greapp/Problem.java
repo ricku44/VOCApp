@@ -2,6 +2,7 @@ package com.example.greapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
@@ -93,11 +94,28 @@ public class Problem extends LinearLayout {
     private void initView(final Context context) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.overlay, null);
+        Configuration config = getResources().getConfiguration();
+
+        View view;
+
+        if (config.smallestScreenWidthDp >= 380)
+            view = inflater.inflate(R.layout.overlay, null);
+        else
+            view = inflater.inflate(R.layout.overlays, null);
+
+
+
+
+
 
         // mStorageRef = FirebaseStorage.getInstance().getReference();
 
         ProgressWheel pw = view.findViewById(R.id.pw_spinner);
+
+
+        if (config.smallestScreenWidthDp < 380)
+            pw.setTextSize(15);
+
 
         pw.incrementProgress(prog * 20);
         pw.setText(prog + "/5");

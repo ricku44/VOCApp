@@ -15,11 +15,8 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleX="2"
-        android:scaleY="2"
-        android:layout_marginStart="90sp"
-        android:layout_marginBottom="120sp"
-        android:layout_alignParentBottom="true" />
+        android:layout_below="@+id/ed1"
+        android:visibility="gone" />
 
 
     <com.google.android.gms.common.SignInButton
@@ -27,12 +24,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:layout_marginStart="90sp"
-        android:layout_marginBottom="100sp"
         style="@style/Widget.AppCompat.Button.Borderless"
         app:buttonSize="icon_only"
         app:colorScheme="dark"
-        android:layout_alignParentBottom="true" />
+        android:layout_below="@+id/ed1"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/ll1"
@@ -72,14 +68,14 @@
 
     <EditText
         android:id="@+id/ed1"
-        android:layout_margin="40dp"
+        android:layout_margin="38sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:layout_below="@+id/ll1"
         android:textColor="#FFFFFF"
         android:maxLength="16"
-        android:hint=" Enter your mobile number"
+        android:hint="@string/enternohint"
         android:textColorHint="#B5E4E4E4"
         android:inputType="phone"
         android:textSize="16dp"
@@ -92,12 +88,42 @@
         android:layout_below="@+id/ll1"
         android:text="Send OTP"
         android:padding="16sp"
-        android:textSize="16dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="42dp"
+        android:textSize="15dp"
+        android:layout_marginTop="39sp"
+        android:layout_marginEnd="39sp"
         android:layout_alignParentRight="true"
         android:textAllCaps="false"
         android:background="@drawable/circle_bg0" />
+
+
+    <LinearLayout
+        android:layout_below="@+id/ed1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="30sp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/fb"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:text="F"
+            android:textColor="#ffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/google"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:text="G"
+            android:textColor="#ffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
 
 
 </RelativeLayout>

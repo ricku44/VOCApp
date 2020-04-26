@@ -156,8 +156,6 @@ public class Login extends AppCompatActivity implements TextWatcher {
 
         custom_dialog = new Dialog(this);
         custom_dialog.setContentView(R.layout.custom__dialog);
-        Button button2 = custom_dialog.findViewById(R.id.resend);
-
 
         editText_one = custom_dialog.findViewById(R.id.editTextone);
         editText_two = custom_dialog.findViewById(R.id.editTexttwo);
@@ -208,95 +206,75 @@ public class Login extends AppCompatActivity implements TextWatcher {
 
 
 
-        google.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
+        google.setOnClickListener(v -> signIn());
+
+
+
+        login1.setOnClickListener(v -> {
+            signup1.setBackground(getResources().getDrawable(R.drawable.textlines2));
+            login1.setBackground(getResources().getDrawable(R.drawable.textlines));
+            signup1.setTextColor(Color.parseColor("#B5E4E4E4"));
+            login1.setTextColor(Color.WHITE);
+            if(phone.getText().toString().equals(""))
+                phone.setHint(" Enter your mobile number");
+        });
+
+        signup1.setOnClickListener(v -> {
+            signup1.setBackground(getResources().getDrawable(R.drawable.textlines));
+            login1.setBackground(getResources().getDrawable(R.drawable.textlines2));
+            login1.setTextColor(Color.parseColor("#B5E4E4E4"));
+            signup1.setTextColor(Color.WHITE);
+            if(phone.getText().toString().equals(""))
+                phone.setHint(" Register your mobile number");
         });
 
 
-
-        login1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signup1.setBackground(getResources().getDrawable(R.drawable.textlines2));
-                login1.setBackground(getResources().getDrawable(R.drawable.textlines));
-                signup1.setTextColor(Color.parseColor("#B5E4E4E4"));
-                login1.setTextColor(Color.WHITE);
-                if(phone.getText().toString().equals(""))
-                    phone.setHint(" Enter your mobile number");
-            }
+        phone.setOnTouchListener((v, event) -> {
+            if(phone.getText().toString().equals(""))
+                phone.setText(" +91  ");
+            if(!phone.getText().toString().substring(0,6).equals(" +91  "))
+                phone.setText(" +91  ");
+            return false;
         });
 
-        signup1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signup1.setBackground(getResources().getDrawable(R.drawable.textlines));
-                login1.setBackground(getResources().getDrawable(R.drawable.textlines2));
-                login1.setTextColor(Color.parseColor("#B5E4E4E4"));
-                signup1.setTextColor(Color.WHITE);
-                if(phone.getText().toString().equals(""))
-                    phone.setHint(" Register your mobile number");
+        otp.setOnClickListener(v -> {
+
+            String number = phone.getText().toString();
+
+            if(phone.getText().toString().equals("")) {
+                phone.setError("Invalid phone number.");
+                phone.setText(" +91  ");
             }
-        });
-
-
-        phone.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(phone.getText().toString().equals(""))
-                    phone.setText(" +91  ");
-                if(!phone.getText().toString().substring(0,6).equals(" +91  "))
-                    phone.setText(" +91  ");
-                return false;
+            else if(number.equals(" +91  ")){
+                phone.setError("Invalid phone number.");
             }
-        });
-
-        otp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String number = phone.getText().toString();
-
-                if(phone.getText().toString().equals("")) {
-                    phone.setError("Invalid phone number.");
-                    phone.setText(" +91  ");
-                }
-                else if(number.equals(" +91  ")){
-                    phone.setError("Invalid phone number.");
-                }
-                else if(!number.substring(0,6).equals(" +91  ")){
-                    phone.setText(" +91  ");
-                    phone.setError("Invalid phone number.");
-                }
-                else if(number.length()<16)
-                    phone.setError("Invalid phone number.");
-                else{
-                    phoneNumber = "+91"+number.substring(6,16);
-                    view();
-                    progressDoalog.show();
-                }
-
+            else if(!number.substring(0,6).equals(" +91  ")){
+                phone.setText(" +91  ");
+                phone.setError("Invalid phone number.");
             }
+            else if(number.length()<16)
+                phone.setError("Invalid phone number.");
+            else{
+                phoneNumber = "+91"+number.substring(6,16);
+                view();
+                progressDoalog.show();
+            }
+
         });
 
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resendVerificationCode(phoneNumber, mResendToken);
-            }
+        custom_dialog.findViewById(R.id.resend).setOnClickListener(v -> resendVerificationCode(phoneNumber, mResendToken));
+
+
+        custom_dialog.findViewById(R.id.button1).setOnClickListener(v -> {
+            verifyPhoneNumberWithCode(mVerificationId, smscode);
         });
 
-        Button button1 = custom_dialog.findViewById(R.id.button1);
 
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyPhoneNumberWithCode(mVerificationId, smscode);
-            }
-        });
+        findViewById(R.id.fb).setOnClickListener(v -> loginButton.performClick());
+
+        findViewById(R.id.google).setOnClickListener(v -> signIn());
+
 
 
     }

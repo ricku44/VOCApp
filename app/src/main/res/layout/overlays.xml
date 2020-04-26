@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#00FFFFFF">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/Quick2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="-1"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/ic_trending_flat_black_24dp"/>
+
+        <Button
+            android:id="@+id/Quick"
+            android:layout_below="@+id/Quick2"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:layout_marginStart="20dp"
+            android:textSize="15sp"
+            android:text="Quick Puzzle"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/voice"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="50dp"
+            android:background="@drawable/ic_hearing_black_24dp" />
+
+        <TextView
+            android:id="@+id/que"
+            android:layout_width="match_parent"
+            android:layout_height="160sp"
+            android:layout_below="@+id/Quick"
+            android:gravity="center_vertical"
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="10sp"
+            android:text="A parent may decide to ________ a baby with a pacifier."
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+
+        <LinearLayout
+            android:id="@+id/op1"
+            android:layout_below="@+id/que"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_margin="10sp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btn1"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:singleLine="true"
+                android:gravity="center_horizontal"
+                android:text="erudite"
+                android:textSize="16sp"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/btn2"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textAllCaps="false"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:text="prodigal"
+                android:textColor="#ffffff" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/op2"
+            android:layout_below="@+id/op1"
+            android:orientation="horizontal"
+            android:layout_margin="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:id="@+id/btn3"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:singleLine="true"
+                android:text="placate"
+                android:textColor="#ffffff" />
+
+
+            <Button
+                android:id="@+id/btn4"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textAllCaps="false"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:text="fervid"
+                android:textColor="#ffffff" />
+
+        </LinearLayout>
+
+
+
+        <Button
+            android:id="@+id/skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:text="Skip"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="10dp"
+            android:textSize="12sp"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/op2"/>
+
+        <com.example.greapp.ProgressWheel
+            android:id="@+id/pw_spinner"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/op2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            ProgressWheel:pwText="1/5"
+            ProgressWheel:pwTextColor="#FFFFFF"
+            ProgressWheel:pwTextSize="17sp"
+            ProgressWheel:pwRimColor="#FFFFFF"
+            ProgressWheel:pwBarLength="60dp"
+            ProgressWheel:pwBarColor="#FFFFFF"
+            ProgressWheel:pwBarWidth="5dp"
+            ProgressWheel:pwRimWidth="0dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="#00FFFFFF" />
+
+</LinearLayout>

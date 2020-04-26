@@ -41,4 +41,6 @@
     <string name="facebook_app_id">155504505897265</string>
     <string name="fb_login_protocol_scheme">fb155504505897265</string>
 
+    <string name="enternohint"><font size="14">Enter your mobile number</font></string>
+
 </resources>
