@@ -42,10 +42,7 @@ public class Problem extends LinearLayout {
 
     Boolean bool=true;
     QuestionHelper dbhelper;
-
-
-    TextToSpeech t1;
-
+    
     public Problem(Context context) {
         super(context);
         initView(context);
@@ -133,9 +130,9 @@ public class Problem extends LinearLayout {
         Button skip = view.findViewById(R.id.skip);
 
 
-        t1 = new TextToSpeech(context, status -> {
+        Home.t1 = new TextToSpeech(context, status -> {
             if (status != TextToSpeech.ERROR) {
-                t1.setLanguage(Locale.US);
+                Home.t1.setLanguage(Locale.US);
             }
         });
 
@@ -178,7 +175,7 @@ public class Problem extends LinearLayout {
             if(io)
                 speak();
             else
-                t1.speak("", TextToSpeech.QUEUE_FLUSH, null);
+                Home.t1.speak("", TextToSpeech.QUEUE_FLUSH, null,null);
 
         });
 
@@ -331,7 +328,7 @@ public class Problem extends LinearLayout {
         vic.setOnClickListener(v -> {
 
             if(io){
-                t1.speak("", TextToSpeech.QUEUE_FLUSH, null);
+                Home.t1.speak("", TextToSpeech.QUEUE_FLUSH, null,null);
                 io=false;
             }
             else {
@@ -346,38 +343,38 @@ public class Problem extends LinearLayout {
 
 
     void speak(){
-        t1.speak("Please provide the answer to the Question that Follows as", TextToSpeech.QUEUE_FLUSH, null);
-        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
+        Home.t1.speak("Please provide the answer to the Question that Follows as", TextToSpeech.QUEUE_FLUSH, null,null);
+        Home.t1.playSilentUtterance(300, TextToSpeech.QUEUE_ADD, null);
 
         String xyz = txt.getText().toString().replaceFirst("_","Dash");
         xyz = xyz.replace("_","");
 
-        t1.speak(xyz, TextToSpeech.QUEUE_ADD,null);
+        Home.t1.speak(xyz, TextToSpeech.QUEUE_ADD,null,null);
 
 
 
-        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
+        Home.t1.playSilentUtterance(300, TextToSpeech.QUEUE_ADD, null);
 
-        t1.speak("Option one", TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
+        Home.t1.speak("Option one", TextToSpeech.QUEUE_ADD, null,null);
+        Home.t1.playSilentUtterance(300, TextToSpeech.QUEUE_ADD, null);
 
-        t1.speak(btn[0].getText().toString(), TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
+        Home.t1.speak(btn[0].getText().toString(), TextToSpeech.QUEUE_ADD, null,null);
+        Home.t1.playSilentUtterance(300, TextToSpeech.QUEUE_ADD, null);
 
 
-        t1.speak("Option Two", TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
-        t1.speak(btn[1].getText().toString(), TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
+        Home.t1.speak("Option Two", TextToSpeech.QUEUE_ADD, null,null);
+        Home.t1.playSilentUtterance(300, TextToSpeech.QUEUE_ADD, null);
+        Home.t1.speak(btn[1].getText().toString(), TextToSpeech.QUEUE_ADD, null, null);
+        Home.t1.playSilentUtterance(300, TextToSpeech.QUEUE_ADD, null);
 
-        t1.speak("Option Three", TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
-        t1.speak(btn[2].getText().toString(), TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
+        Home.t1.speak("Option Three", TextToSpeech.QUEUE_ADD, null, null);
+        Home.t1.playSilentUtterance(300, TextToSpeech.QUEUE_ADD, null);
+        Home.t1.speak(btn[2].getText().toString(), TextToSpeech.QUEUE_ADD, null, null);
+        Home.t1.playSilentUtterance(300, TextToSpeech.QUEUE_ADD, null);
 
-        t1.speak("Option Four", TextToSpeech.QUEUE_ADD, null);
-        t1.playSilence(300, TextToSpeech.QUEUE_ADD, null);
-        t1.speak(btn[3].getText().toString(), TextToSpeech.QUEUE_ADD, null);
+        Home.t1.speak("Option Four", TextToSpeech.QUEUE_ADD, null, null);
+        Home.t1.playSilentUtterance(300, TextToSpeech.QUEUE_ADD, null);
+        Home.t1.speak(btn[3].getText().toString(), TextToSpeech.QUEUE_ADD, null, null);
     }
 
 }

@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class QuestionHelper extends SQLiteOpenHelper {
@@ -146,5 +148,25 @@ public class QuestionHelper extends SQLiteOpenHelper {
         }
         return list;
     }
+
+    public Map<String,String> getRatio()
+    {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null,SQLiteDatabase.OPEN_READONLY);
+
+        String query = "select id,right,wrong from questions";
+
+        Cursor cr = db.rawQuery(query,null);
+
+        HashMap<String, String> map =new HashMap<>();
+
+        while(cr.moveToNext())
+        {
+            Integer obj = new Integer(cr.getInt(0));
+            map.put(obj.toString(),cr.getInt(1)+" "+cr.getInt(2));
+        }
+
+        return map;
+    }
+
 
 }

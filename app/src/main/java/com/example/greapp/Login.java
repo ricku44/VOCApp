@@ -339,9 +339,10 @@ public class Login extends AppCompatActivity implements TextWatcher {
     }
 
     private void updateUI(FirebaseUser user) {
-        if(user!=null)
-            startActivity(new Intent(getApplicationContext(),Home.class));
-
+        if(user!=null) {
+            new storehelper().updateSQL(getApplicationContext());
+            startActivity(new Intent(getApplicationContext(), Home.class));
+        }
     }
 
 
@@ -362,8 +363,10 @@ public class Login extends AppCompatActivity implements TextWatcher {
                             Log.d(TAG, "signInWithCredential:success");
 
                             FirebaseUser user = task.getResult().getUser();
-                            if(user!=null)
-                                startActivity(new Intent(getApplicationContext(),Home.class));
+                            if(user!=null) {
+                                new storehelper().updateSQL(getApplicationContext());
+                                startActivity(new Intent(getApplicationContext(), Home.class));
+                            }
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {

@@ -3,6 +3,7 @@ package com.example.greapp;
 import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -13,12 +14,15 @@ import com.example.greapp.ui.dashboard.DashboardFragment;
 import com.example.greapp.ui.home.HomeFragment;
 import com.example.greapp.ui.notifications.NotificationsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
+
+import android.speech.tts.TextToSpeech;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -29,7 +33,6 @@ import java.util.ArrayList;
 public class Home extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     private static final String TAG = "MainActivity";
-
     private ArrayList<GradientDrawable> clrs = new ArrayList<>();
     private ArrayList<String> ids = new ArrayList<>();
     private ArrayList<String> texts = new ArrayList<>();
@@ -38,10 +41,14 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
     private UnlockTrigger unlockTrigger;
     BottomNavigationView nav;
     FragmentManager manager;
+    public static TextToSpeech t1 = null;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        stopService(new Intent(this, BackService.class));
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -69,17 +76,32 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
 
         overlayHelper = new OverlayHelper(this.getApplicationContext(), new OverlayHelper.OverlayPermissionChangedListener() {
             @Override public void onOverlayPermissionCancelled() {
-                Toast.makeText(Home.this, "Draw overlay permissions request canceled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Home.this, "Permissions required to run this App", Toast.LENGTH_SHORT).show();
             }
 
             @Override public void onOverlayPermissionGranted() {
-                Toast.makeText(Home.this, "Draw overlay permissions request granted", Toast.LENGTH_SHORT).show();
+                unlockTrigger = new UnlockTrigger();
+                registerReceiver(unlockTrigger, new IntentFilter("android.intent.action.USER_PRESENT"));
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
+                if(!previouslyStarted) {
+                    SharedPreferences.Editor edit = prefs.edit();
+                    edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
+                    edit.apply();
+
+                    Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
+                            .putExtra(Settings.EXTRA_APP_PACKAGE, getApplicationContext().getPackageName())
+                            .putExtra(Settings.EXTRA_CHANNEL_ID, "com.example.GreApp");
+                    startActivity(intent);
+                    startService(new Intent(getApplicationContext(),InstOverlay.class));
+                }
             }
 
             @Override public void onOverlayPermissionDenied() {
-                Toast.makeText(Home.this, "Draw overlay permissions request denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Home.this, "Permissions required to run this App", Toast.LENGTH_SHORT).show();
             }
         });
+
 
         overlayHelper.startWatching();
 
@@ -87,30 +109,20 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
 
             overlayHelper.requestDrawOverlaysPermission(
                     Home.this,
-                    "Request draw overlays permission?",
-                    "You have to enable the draw overlays permission for this app to work",
+                    "Setting up the app",
+                    "Provide overlay permissions for this app to work",
                     "Enable",
                     "Cancel");
-        } else {
-
-            unlockTrigger = new UnlockTrigger();
-            registerReceiver(unlockTrigger, new IntentFilter("android.intent.action.USER_PRESENT"));
         }
-
-
-        startService(new Intent(this, BackService.class));
-
 
     }
 
 
 
     private void changeStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.BLACK);
-        }
     }
 
     @Override
@@ -121,36 +133,28 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onPause() {
 
-        if(unlockTrigger!=null)
-            unregisterReceiver(unlockTrigger);
-
-        startService(new Intent(this, BackService.class));
-        super.onDestroy();
-
-
-    }
-
-    @Override
-    public void onPause() {
-
-        //unregisterReceiver(unlockTrigger);
+        try {
+            if(unlockTrigger!=null)
+                unregisterReceiver(unlockTrigger);
+        } catch (IllegalArgumentException e) { e.printStackTrace(); }
 
         startService(new Intent(this, BackService.class));
+
         super.onPause();
-
-
-
     }
 
+
     @Override
-    public void onStop() {
-        //unregisterReceiver(unlockTrigger);
+    protected void onResume() {
 
-        startService(new Intent(this, BackService.class));
-        super.onStop();
+        stopService(new Intent(this, BackService.class));
 
+        if(Settings.canDrawOverlays(this))
+            registerReceiver(unlockTrigger, new IntentFilter("android.intent.action.USER_PRESENT"));
+
+        super.onResume();
     }
 
     @Override
