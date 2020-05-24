@@ -8,6 +8,16 @@ public class Answer {
 
     private String Meaning;
 
+    private String scre;
+
+    public String getScre() {
+        return scre;
+    }
+
+    public void setScre(String scre) {
+        this.scre = scre;
+    }
+
     public int getId() {
         return id;
     }

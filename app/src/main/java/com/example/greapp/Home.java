@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
@@ -42,9 +43,8 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
     BottomNavigationView nav;
     FragmentManager manager;
     public static TextToSpeech t1 = null;
+    AlertDialog.Builder builder;
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -56,15 +56,15 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
         nav = findViewById(R.id.nav_view);
         manager = getSupportFragmentManager();
 
-            nav.setElevation(0);
-            manager.beginTransaction().replace(R.id.nav_host_fragment, new HomeFragment()).commit();
-            BottomNavigationViewHelper.changePosition(nav, 0);
-            nav.setOnNavigationItemSelectedListener(this);
+        nav.setElevation(0);
+        manager.beginTransaction().replace(R.id.nav_host_fragment, new HomeFragment()).commit();
+        BottomNavigationViewHelper.changePosition(nav, 0);
+        nav.setOnNavigationItemSelectedListener(this);
 
 
         GradientDrawable gd = new GradientDrawable(
                 GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[] {0xFF181d27,0xFF0c0c0c});
+                new int[]{0xFF181d27, 0xFF0c0c0c});
         gd.setCornerRadius(0f);
 
         getWindow().getDecorView().setBackground(gd);
@@ -75,29 +75,44 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
         isWriteStoragePermissionGranted();
 
         overlayHelper = new OverlayHelper(this.getApplicationContext(), new OverlayHelper.OverlayPermissionChangedListener() {
-            @Override public void onOverlayPermissionCancelled() {
+            @Override
+            public void onOverlayPermissionCancelled() {
                 Toast.makeText(Home.this, "Permissions required to run this App", Toast.LENGTH_SHORT).show();
             }
 
-            @Override public void onOverlayPermissionGranted() {
+            @Override
+            public void onOverlayPermissionGranted() {
                 unlockTrigger = new UnlockTrigger();
                 registerReceiver(unlockTrigger, new IntentFilter("android.intent.action.USER_PRESENT"));
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
-                if(!previouslyStarted) {
-                    SharedPreferences.Editor edit = prefs.edit();
-                    edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
-                    edit.apply();
 
-                    Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
-                            .putExtra(Settings.EXTRA_APP_PACKAGE, getApplicationContext().getPackageName())
-                            .putExtra(Settings.EXTRA_CHANNEL_ID, "com.example.GreApp");
-                    startActivity(intent);
-                    startService(new Intent(getApplicationContext(),InstOverlay.class));
+                if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.Q) {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                    boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
+                    if (!previouslyStarted) {
+                        SharedPreferences.Editor edit = prefs.edit();
+                        edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
+                        edit.apply();
+
+                        Intent intent = new Intent();
+
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            intent.setAction(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+                            intent.putExtra(Settings.EXTRA_APP_PACKAGE, getApplicationContext().getPackageName());
+                            intent.putExtra(Settings.EXTRA_CHANNEL_ID, "com.example.GreApp");
+                        } else {
+                            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+                            intent.putExtra("app_package", getApplicationContext().getPackageName());
+                            intent.putExtra("app_uid", getApplicationContext().getApplicationInfo().uid);
+                        }
+
+                        startActivity(intent);
+                        startService(new Intent(getApplicationContext(), InstOverlay.class));
+                    }
                 }
             }
 
-            @Override public void onOverlayPermissionDenied() {
+            @Override
+            public void onOverlayPermissionDenied() {
                 Toast.makeText(Home.this, "Permissions required to run this App", Toast.LENGTH_SHORT).show();
             }
         });
@@ -115,8 +130,37 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
                     "Cancel");
         }
 
-    }
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean previouslyStarted2 = prefs.getBoolean(getString(R.string.pref_previously_started2), false);
+        if (!previouslyStarted2 && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
 
+            builder = new AlertDialog.Builder(this);
+
+            builder.setMessage("Please disable the notification for better experience.")
+                .setCancelable(false)
+                .setPositiveButton("Proceed", (dialog, id) -> {
+
+                   SharedPreferences.Editor edit = prefs.edit();
+                   edit.putBoolean(getString(R.string.pref_previously_started2), Boolean.TRUE);
+                   edit.apply();
+
+                   Intent intent = new Intent();
+
+                   intent.setAction(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+                   intent.putExtra(Settings.EXTRA_APP_PACKAGE, getApplicationContext().getPackageName());
+                   intent.putExtra(Settings.EXTRA_CHANNEL_ID, "com.example.GreApp");
+
+                   startActivity(intent);
+                })
+                .setNegativeButton("Cancel", (dialog, id) -> {
+                   dialog.cancel();
+                });
+            
+            AlertDialog alert = builder.create();
+            alert.setTitle("Next Steps");
+            alert.show();
+        }
+    }
 
 
     private void changeStatusBarColor() {

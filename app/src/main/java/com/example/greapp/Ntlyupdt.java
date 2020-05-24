@@ -11,6 +11,6 @@ public class Ntlyupdt extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         s.updatestore(context);
 
-        Toast.makeText(context,"Triggered",Toast.LENGTH_LONG).show();
+        Toast.makeText(context,"Back Up Success",Toast.LENGTH_LONG).show();
     }
 }

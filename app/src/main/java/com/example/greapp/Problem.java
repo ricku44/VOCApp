@@ -2,6 +2,7 @@ package com.example.greapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
@@ -42,7 +43,11 @@ public class Problem extends LinearLayout {
 
     Boolean bool=true;
     QuestionHelper dbhelper;
-    
+
+    Score sc = new Score();
+    storehelper str = new storehelper();
+    SharedPreferences share;
+
     public Problem(Context context) {
         super(context);
         initView(context);
@@ -181,6 +186,7 @@ public class Problem extends LinearLayout {
 
         dbhelper = new QuestionHelper(context);
         dbhelper.prepareDatabase();
+        sc.setTotal_score(dbhelper.return_update());
         que = dbhelper.getQuestion(generate(51));
         ans = dbhelper.get_answer();
         arr = shuffle(intArray);
@@ -203,10 +209,13 @@ public class Problem extends LinearLayout {
             if (arr[3] == 0) {
                 //Toast.makeText(context,"Correct  " +que.getMeaning(), Toast.LENGTH_LONG).show();
                 if (bool) {
+                    sc.calculate_score(bool,que.getDifficulty());
+                    str.updatestorescore(sc.getTotal_score());
                     int i1, j;
                     i1 = que.getRight() + 1;
                     j = que.getWrong();
                     dbhelper.questionUpdate(i1, j, que.getId());
+                    dbhelper.updatescore(sc.getTotal_score());
                 }
 
                 /*prog++;
@@ -221,6 +230,8 @@ public class Problem extends LinearLayout {
             } else {
                 if (bool) {
                     bool = false;
+                    sc.calculate_score(bool,que.getDifficulty());
+                    str.updatestorescore(sc.getTotal_score());
                     int i1, j;
                     i1 = que.getRight();
                     j = que.getWrong() + 1;
@@ -228,6 +239,7 @@ public class Problem extends LinearLayout {
                     //Toast.makeText(context, que.getAnswers(), Toast.LENGTH_LONG).show();
                     btn[0].setTextColor(Color.RED);
                     btn[arr[3]].setTextColor(Color.GREEN);
+                    dbhelper.updatescore(sc.getTotal_score());
                 }
                 skip.setText("Next");
             }
@@ -236,10 +248,13 @@ public class Problem extends LinearLayout {
             if (arr[3] == 1) {
                 //Toast.makeText(context,"Correct  " +que.getMeaning(), Toast.LENGTH_LONG).show();
                 if (bool) {
+                    sc.calculate_score(bool,que.getDifficulty());
+                    str.updatestorescore(sc.getTotal_score());
                     int i12, j;
                     i12 = que.getRight() + 1;
                     j = que.getWrong();
                     dbhelper.questionUpdate(i12, j, que.getId());
+                    dbhelper.updatescore(sc.getTotal_score());
                 }
 
                 if (prog >= 5)
@@ -251,6 +266,8 @@ public class Problem extends LinearLayout {
             } else {
                 if (bool) {
                     bool = false;
+                    sc.calculate_score(bool,que.getDifficulty());
+                    str.updatestorescore(sc.getTotal_score());
                     int i12, j;
                     i12 = que.getRight();
                     j = que.getWrong() + 1;
@@ -258,6 +275,7 @@ public class Problem extends LinearLayout {
                     //Toast.makeText(context, que.getAnswers(), Toast.LENGTH_LONG).show();
                     btn[1].setTextColor(Color.RED);
                     btn[arr[3]].setTextColor(Color.GREEN);
+                    dbhelper.updatescore(sc.getTotal_score());
                 }
                 skip.setText("Next");
             }
@@ -266,10 +284,13 @@ public class Problem extends LinearLayout {
             if (arr[3] == 2) {
                 //Toast.makeText(context,"Correct  " +que.getMeaning(), Toast.LENGTH_LONG).show();
                 if (bool) {
+                    sc.calculate_score(bool,que.getDifficulty());
+                    str.updatestorescore(sc.getTotal_score());
                     int i13, j;
                     i13 = que.getRight() + 1;
                     j = que.getWrong();
                     dbhelper.questionUpdate(i13, j, que.getId());
+                    dbhelper.updatescore(sc.getTotal_score());
                 }
 
                 if (prog >= 5)
@@ -281,6 +302,8 @@ public class Problem extends LinearLayout {
             } else {
                 if (bool) {
                     bool = false;
+                    sc.calculate_score(bool,que.getDifficulty());
+                    str.updatestorescore(sc.getTotal_score());
                     int i13, j;
                     i13 = que.getRight();
                     j = que.getWrong() + 1;
@@ -288,6 +311,7 @@ public class Problem extends LinearLayout {
                     //Toast.makeText(context, que.getAnswers(), Toast.LENGTH_LONG).show();
                     btn[2].setTextColor(Color.RED);
                     btn[arr[3]].setTextColor(Color.GREEN);
+                    dbhelper.updatescore(sc.getTotal_score());
                 }
                 skip.setText("Next");
             }
@@ -296,10 +320,13 @@ public class Problem extends LinearLayout {
             if (arr[3] == 3) {
                 //Toast.makeText(context,"Correct  "+que.getMeaning(), Toast.LENGTH_LONG).show();
                 if (bool) {
+                    sc.calculate_score(bool,que.getDifficulty());
+                    str.updatestorescore(sc.getTotal_score());
                     int i14, j;
                     i14 = que.getRight() + 1;
                     j = que.getWrong();
                     dbhelper.questionUpdate(i14, j, que.getId());
+                    dbhelper.updatescore(sc.getTotal_score());
                 }
 
                 if (prog >= 5)
@@ -312,12 +339,15 @@ public class Problem extends LinearLayout {
                 //Toast.makeText(context, que.getAnswers(), Toast.LENGTH_LONG).show();
                 if (bool) {
                     bool = false;
+                    sc.calculate_score(bool,que.getDifficulty());
+                    str.updatestorescore(sc.getTotal_score());
                     int i14, j;
                     i14 = que.getRight();
                     j = que.getWrong() + 1;
                     dbhelper.questionUpdate(i14, j, que.getId());
                     btn[3].setTextColor(Color.RED);
                     btn[arr[3]].setTextColor(Color.GREEN);
+                    dbhelper.updatescore(sc.getTotal_score());
                 }
                 skip.setText("Next");
             }

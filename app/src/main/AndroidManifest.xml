@@ -27,7 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Profile" />
+        <activity android:name=".Profile"
+            android:theme="@style/AppTheme2"/>
         <activity android:name=".Onboarding" />
         <activity android:name=".Login" />
         <activity

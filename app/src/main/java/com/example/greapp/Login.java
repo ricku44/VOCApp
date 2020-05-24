@@ -6,9 +6,11 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -340,7 +342,19 @@ public class Login extends AppCompatActivity implements TextWatcher {
 
     private void updateUI(FirebaseUser user) {
         if(user!=null) {
-            new storehelper().updateSQL(getApplicationContext());
+
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            boolean previouslyStarted3 = prefs.getBoolean(getString(R.string.pref_previously_started3), false);
+            if (!previouslyStarted3) {
+                SharedPreferences.Editor edit = prefs.edit();
+                edit.putBoolean(getString(R.string.pref_previously_started3), Boolean.TRUE);
+                edit.apply();
+
+                storehelper s = new storehelper();
+                s.updateappscore(getApplicationContext());
+                s.updateSQL(getApplicationContext());
+                s.updatestorescore(new Score().getTotal_score());
+            }
             startActivity(new Intent(getApplicationContext(), Home.class));
         }
     }
@@ -364,7 +378,19 @@ public class Login extends AppCompatActivity implements TextWatcher {
 
                             FirebaseUser user = task.getResult().getUser();
                             if(user!=null) {
-                                new storehelper().updateSQL(getApplicationContext());
+
+                                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                                boolean previouslyStarted3 = prefs.getBoolean(getString(R.string.pref_previously_started3), false);
+                                if (!previouslyStarted3) {
+                                    SharedPreferences.Editor edit = prefs.edit();
+                                    edit.putBoolean(getString(R.string.pref_previously_started3), Boolean.TRUE);
+                                    edit.apply();
+
+                                    storehelper s = new storehelper();
+                                    s.updateappscore(getApplicationContext());
+                                    s.updateSQL(getApplicationContext());
+                                    s.updatestorescore(new Score().getTotal_score());
+                                }
                                 startActivity(new Intent(getApplicationContext(), Home.class));
                             }
                         } else {

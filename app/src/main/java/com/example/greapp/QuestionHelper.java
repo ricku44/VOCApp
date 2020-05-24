@@ -22,6 +22,8 @@ public class QuestionHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "questionDB.db";
     private static final int DATABASE_VERSION = 1;
+    Double score;
+
     //private static String path= "data/data"+ BuildConfig.APPLICATION_ID +"/databases/";
     Context mycontext;
     String pathToSaveDBFile;
@@ -97,7 +99,7 @@ public class QuestionHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);
 
 
-        String query= "select q.question, q.answer, q.right, q.wrong, m.meanings  from questions q, meaning m where q.id="+id+" and q.answer=m.answer";
+        String query= "select q.question, q.answer, q.right, q.wrong, m.meanings, m.difficulty from questions q, meaning m where q.id="+id+" and q.answer=m.answer";
 
         Cursor cursor =db.rawQuery(query,null);
 
@@ -111,7 +113,7 @@ public class QuestionHelper extends SQLiteOpenHelper {
             que.setRight(cursor.getInt(2));
             que.setWrong(cursor.getInt(3));
             que.setMeaning(cursor.getString(4));
-
+            que.setDifficulty(cursor.getString(5));
 
         }
 
@@ -168,5 +170,31 @@ public class QuestionHelper extends SQLiteOpenHelper {
         return map;
     }
 
+
+    void updatescore(double score) {
+
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READWRITE);
+
+        String query = "Update Score SET user_score=" + score + ";";
+
+        db.execSQL(query);
+
+    }
+
+    Double return_update() {
+
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);
+
+        String query = "select user_score from Score";
+
+        Cursor cr = db.rawQuery(query, null);
+
+
+        while (cr.moveToNext()) {
+            score = cr.getDouble(0);
+        }
+
+        return score;
+    }
 
 }

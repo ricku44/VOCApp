@@ -12,6 +12,17 @@ public class Question {
 
     private  int wrong;
 
+    private  String difficulty;
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+
     public String getMeaning() {
         return Meaning;
     }
