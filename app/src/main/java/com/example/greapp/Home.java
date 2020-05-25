@@ -22,7 +22,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
-
 import android.speech.tts.TextToSpeech;
 import android.view.MenuItem;
 import android.view.Window;
@@ -87,10 +86,10 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
 
                 if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.Q) {
                     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                    boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
-                    if (!previouslyStarted) {
+                    boolean previouslyStarted1 = prefs.getBoolean(getString(R.string.pref_previously_started1), false);
+                    if (!previouslyStarted1) {
                         SharedPreferences.Editor edit = prefs.edit();
-                        edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
+                        edit.putBoolean(getString(R.string.pref_previously_started1), Boolean.TRUE);
                         edit.apply();
 
                         Intent intent = new Intent();

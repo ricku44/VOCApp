@@ -44,10 +44,6 @@ public class Problem extends LinearLayout {
     Boolean bool=true;
     QuestionHelper dbhelper;
 
-    Score sc = new Score();
-    storehelper str = new storehelper();
-    SharedPreferences share;
-
     public Problem(Context context) {
         super(context);
         initView(context);
@@ -107,7 +103,8 @@ public class Problem extends LinearLayout {
 
 
 
-
+        Score sc = new Score();
+        storehelper str = new storehelper();
 
 
         // mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -207,7 +204,6 @@ public class Problem extends LinearLayout {
         btn[0].setOnClickListener(v -> {
 
             if (arr[3] == 0) {
-                //Toast.makeText(context,"Correct  " +que.getMeaning(), Toast.LENGTH_LONG).show();
                 if (bool) {
                     sc.calculate_score(bool,que.getDifficulty());
                     str.updatestorescore(sc.getTotal_score());
@@ -236,7 +232,6 @@ public class Problem extends LinearLayout {
                     i1 = que.getRight();
                     j = que.getWrong() + 1;
                     dbhelper.questionUpdate(i1, j, que.getId());
-                    //Toast.makeText(context, que.getAnswers(), Toast.LENGTH_LONG).show();
                     btn[0].setTextColor(Color.RED);
                     btn[arr[3]].setTextColor(Color.GREEN);
                     dbhelper.updatescore(sc.getTotal_score());
@@ -246,7 +241,6 @@ public class Problem extends LinearLayout {
         });
         btn[1].setOnClickListener(v -> {
             if (arr[3] == 1) {
-                //Toast.makeText(context,"Correct  " +que.getMeaning(), Toast.LENGTH_LONG).show();
                 if (bool) {
                     sc.calculate_score(bool,que.getDifficulty());
                     str.updatestorescore(sc.getTotal_score());
@@ -272,7 +266,6 @@ public class Problem extends LinearLayout {
                     i12 = que.getRight();
                     j = que.getWrong() + 1;
                     dbhelper.questionUpdate(i12, j, que.getId());
-                    //Toast.makeText(context, que.getAnswers(), Toast.LENGTH_LONG).show();
                     btn[1].setTextColor(Color.RED);
                     btn[arr[3]].setTextColor(Color.GREEN);
                     dbhelper.updatescore(sc.getTotal_score());
@@ -282,7 +275,6 @@ public class Problem extends LinearLayout {
         });
         btn[2].setOnClickListener(v -> {
             if (arr[3] == 2) {
-                //Toast.makeText(context,"Correct  " +que.getMeaning(), Toast.LENGTH_LONG).show();
                 if (bool) {
                     sc.calculate_score(bool,que.getDifficulty());
                     str.updatestorescore(sc.getTotal_score());
@@ -308,7 +300,6 @@ public class Problem extends LinearLayout {
                     i13 = que.getRight();
                     j = que.getWrong() + 1;
                     dbhelper.questionUpdate(i13, j, que.getId());
-                    //Toast.makeText(context, que.getAnswers(), Toast.LENGTH_LONG).show();
                     btn[2].setTextColor(Color.RED);
                     btn[arr[3]].setTextColor(Color.GREEN);
                     dbhelper.updatescore(sc.getTotal_score());
@@ -318,7 +309,6 @@ public class Problem extends LinearLayout {
         });
         btn[3].setOnClickListener(v -> {
             if (arr[3] == 3) {
-                //Toast.makeText(context,"Correct  "+que.getMeaning(), Toast.LENGTH_LONG).show();
                 if (bool) {
                     sc.calculate_score(bool,que.getDifficulty());
                     str.updatestorescore(sc.getTotal_score());
@@ -336,7 +326,6 @@ public class Problem extends LinearLayout {
                     skip.callOnClick();
                 }
             } else {
-                //Toast.makeText(context, que.getAnswers(), Toast.LENGTH_LONG).show();
                 if (bool) {
                     bool = false;
                     sc.calculate_score(bool,que.getDifficulty());

@@ -44,29 +44,26 @@ class storehelper {
         QuestionHelper dbhelper = new QuestionHelper(context);
         dbhelper.prepareDatabase();
 
-        db.collection(sr).document("ratio").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    assert document != null;
-                    updatedb = document.getData();
-                    assert updatedb != null;
-                    try {
-                        updatedb.get("44");
-                        for (Map.Entry entry : updatedb.entrySet()) {
-                            int id = Integer.parseInt(entry.getKey().toString());
+        db.collection(sr).document("ratio").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                assert document != null;
+                updatedb = document.getData();
+                assert updatedb != null;
+                try {
+                    updatedb.get("44");
+                    for (Map.Entry entry : updatedb.entrySet()) {
+                        int id = Integer.parseInt(entry.getKey().toString());
 
-                            String obj = entry.getValue().toString();
+                        String obj = entry.getValue().toString();
 
-                            String[] rw = obj.split(" ");
+                        String[] rw = obj.split(" ");
 
-                            dbhelper.questionUpdate(Integer.parseInt(rw[0]), Integer.parseInt(rw[1]), id);
-                            Log.e("rr", "NEW" + id + Integer.parseInt(rw[0]) + Integer.parseInt(rw[1]));
-                        }
-                    } catch (Exception e){ e.printStackTrace(); }
+                        dbhelper.questionUpdate(Integer.parseInt(rw[0]), Integer.parseInt(rw[1]), id);
+                        Log.e("rr", "NEW" + id + Integer.parseInt(rw[0]) + Integer.parseInt(rw[1]));
+                    }
+                } catch (Exception e){ e.printStackTrace(); }
 
-                }
             }
         });
 

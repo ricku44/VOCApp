@@ -355,7 +355,10 @@ public class Login extends AppCompatActivity implements TextWatcher {
                 s.updateSQL(getApplicationContext());
                 s.updatestorescore(new Score().getTotal_score());
             }
-            startActivity(new Intent(getApplicationContext(), Home.class));
+            if(user.getDisplayName()==null || user.getPhoneNumber()==null || user.getEmail()==null)
+                startActivity(new Intent(getApplicationContext(), SignUpDetails.class));
+            else
+                startActivity(new Intent(getApplicationContext(), Home.class));
         }
     }
 
@@ -391,7 +394,10 @@ public class Login extends AppCompatActivity implements TextWatcher {
                                     s.updateSQL(getApplicationContext());
                                     s.updatestorescore(new Score().getTotal_score());
                                 }
-                                startActivity(new Intent(getApplicationContext(), Home.class));
+                                if(user.getDisplayName()==null || user.getPhoneNumber()==null || user.getEmail()==null)
+                                    startActivity(new Intent(getApplicationContext(), SignUpDetails.class));
+                                else
+                                    startActivity(new Intent(getApplicationContext(), Home.class));
                             }
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

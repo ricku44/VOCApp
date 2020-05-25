@@ -43,7 +43,7 @@
 
     <string name="enternohint"><font size="14">Enter your mobile number</font></string>
 
-    <string name="pref_previously_started">false</string>
+    <string name="pref_previously_started1">false</string>
     <string name="pref_previously_started2">false</string>
     <string name="pref_previously_started3">false</string>
 

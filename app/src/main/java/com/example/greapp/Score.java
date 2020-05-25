@@ -17,9 +17,9 @@ public class  Score {
 
     private  double total_score;
 
-    public void setTotal_score(double total_score)
+    void setTotal_score(double total_score)
     {
-        this.total_score = total_score;
+        this.total_score = total_score>0?total_score:0;
     }
 
     void calculate_score(Boolean crct, String diff)
@@ -50,10 +50,8 @@ public class  Score {
         Log.e("new ouput of score ", Double.toString(total_score));
     }
 
-    public double getTotal_score() {
-
-        //Log.e("new ouput of score in getscore ", Double.toString(total_score));
-        return DoubleRounder.round(total_score>0?total_score:0, 2);
+    double getTotal_score() {
+        return DoubleRounder.round(total_score, 2);
     }
 
 

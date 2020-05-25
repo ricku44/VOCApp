@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,12 +34,13 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Profile extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
     String sr = user.getUid();
-    ImageView profile_pic;
+    CircleImageView profile_pic;
     Uri file;
     private StorageReference mStorageRef;
 
@@ -49,6 +51,7 @@ public class Profile extends AppCompatActivity {
 
         TextInputEditText name = findViewById(R.id.username);
         TextInputEditText email = findViewById(R.id.emailadd);
+        TextInputEditText pno = findViewById(R.id.phn_no);
 
         TextView name2 = findViewById(R.id.usrname);
 
@@ -58,9 +61,8 @@ public class Profile extends AppCompatActivity {
         name.setText(user.getDisplayName());
         name2.setText(user.getDisplayName());
         email.setText(user.getEmail());
+        pno.setText(user.getPhoneNumber());
 
-        Score sc = new Score();
-        storehelper str = new storehelper();
 
         TextView update_score = findViewById(R.id.score);
         db.collection(user.getUid()).document("score").get().addOnCompleteListener(task -> {
@@ -68,6 +70,16 @@ public class Profile extends AppCompatActivity {
             {
                 DocumentSnapshot documnet = task.getResult();
                 update_score.setText(documnet.getData().get("1").toString());
+
+            }
+
+        });
+
+        db.collection(user.getUid()).document("Phone").get().addOnCompleteListener(task -> {
+            if(task.isSuccessful())
+            {
+                DocumentSnapshot documnet = task.getResult();
+                pno.setText(documnet.getData().get("1").toString());
 
             }
 
@@ -161,74 +173,50 @@ public class Profile extends AppCompatActivity {
             public void onFailure(@NonNull Exception exception) {
                 System.out.println("Not uploaded");
             }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                // ...
-                System.out.println("Uploaded");
-            }
+        }).addOnSuccessListener(taskSnapshot -> {
+            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+            // ...
+            System.out.println("Uploaded");
         });
     }
 
-    //    public void  downloadfile(){
-//
-//        File localFile = null;
-//        try {
-//            localFile= File.createTempFile("images", "jpg");
-//        }
-//        catch (java.io.IOException e)
-//        {
-//            e.printStackTrace();
-//        }
-//
-//        mStorageRef.child("pictures/"+sr+"/profile.jpg").getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                // Local temp file has been created
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                // Handle any errors
-//            }
-//        });
-//    }
+
     public void downloadfile(){
 
-        mStorageRef.child("pictures/"+sr+"/profile.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                loadimage(uri);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                file = null;
-            }
-        });
+        mStorageRef.child("pictures/"+sr+"/profile.jpg").getDownloadUrl().addOnSuccessListener(uri -> loadimage(uri)).addOnFailureListener(exception -> file = null);
     }
 
     public void loadimage(Uri uri)
     {
         Picasso.Builder builder = new Picasso.Builder(getApplicationContext());
-        builder.listener(new Picasso.Listener() {
-                             @Override
-                             public void onImageLoadFailed(Picasso picasso, Uri uri, Exception arg1) {
-                                 Log.e("Picasso Error", "Failed to load image: " + arg1);
-                             }
-                         }
+        builder.listener((picasso, uri1, arg1) -> Log.e("Picasso Error", "Failed to load image: " + arg1)
         );
-        Picasso pic = builder.build();
-        pic.with(getApplicationContext()).load(uri).into(profile_pic);
+        //Picasso pic = builder.build();
+        Picasso.with(getApplicationContext()).load(uri).into(profile_pic);
         Log.e("LOL","error");
     }
 
     public void setName_email(String name , String email)
     {
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
-        user.updateProfile(profileUpdates);
-        user.updateEmail(email);
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(name)
+                .build();
+
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("ff", "User profile updated.");
+                    }
+                });
+
+        user.updateEmail(email)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("ffff", "User email address updated.");
+                    }
+                });
+
+
 
     }
 

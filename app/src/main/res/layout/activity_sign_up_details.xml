@@ -3,46 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" >
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@drawable/gradient">
+    android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profilepic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/common_google_signin_btn_icon_dark"
-            android:layout_centerVertical="true"/>
-
-        <android.widget.TextView
-            android:id="@+id/usrname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/profilepic"
-            android:fontFamily="@font/galindo"
-            android:includeFontPadding="false"
-            android:text="Loading ..."
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
-        <android.widget.TextView
-            android:id="@+id/username_field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/usrname"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/profilepic"
-            android:includeFontPadding="false"
-            android:text="BEGINNER"
-            android:textColor="#ffffff"
-            android:textSize="14sp" />
-    </RelativeLayout>
     <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_marginTop="-100dp"
         android:layout_width="match_parent"
         android:padding="20dp">
 
@@ -67,7 +31,7 @@
                     android:fontFamily="@font/aldrich"
                     android:includeFontPadding="false"
                     android:textStyle="bold"
-                    android:text="00"
+                    android:text="Welcome Aboard"
                     android:textSize="20sp" />
 
                 <android.widget.TextView
@@ -78,7 +42,7 @@
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/aldrich"
                     android:includeFontPadding="false"
-                    android:text="SCORE"
+                    android:text="Please provide the details"
                     android:textStyle="bold"
                     android:textSize="20sp" />
 
@@ -87,6 +51,7 @@
 
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
+
     <RelativeLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -106,9 +71,10 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_person_outline_black_24dp"
                 android:drawablePadding="10dp"
-                android:enabled="false"
                 android:fontFamily="@font/galindo" />
+
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:hint="Email address"
             android:id="@+id/email"
@@ -123,9 +89,10 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_mail_outline_black_24dp"
                 android:drawablePadding="10dp"
-                android:enabled="false"
                 android:fontFamily="@font/aldrich" />
+
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:hint="Mobile No"
             android:paddingTop="20dp"
@@ -137,9 +104,9 @@
                 android:drawableStart="@drawable/ic_call_24px"
                 android:drawablePadding="10dp"
                 android:id="@+id/phn_no"
-                android:enabled="false"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
     </RelativeLayout>
@@ -148,7 +115,7 @@
         android:id="@+id/edit_save"
         android:layout_width="100dp"
         android:layout_height="60dp"
-        android:text="Edit"
+        android:text="Continue"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_marginLeft="160dp"/>
 </LinearLayout>
