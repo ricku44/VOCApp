@@ -1,10 +1,7 @@
 package com.example.greapp;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -12,8 +9,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import androidx.annotation.NonNull;
 
 
 class storehelper {
@@ -23,14 +18,7 @@ class storehelper {
     private Map<String,Object> updatedb;
 
     Map<String,Object> score;
-    String sor;
     Score scr = new Score();
-    SharedPreferences share;
-
-    void setsor(String sor)
-    {
-        this.sor = sor;
-    }
 
     void updatestore(Context context) {
         QuestionHelper dbhelper= new QuestionHelper(context);
