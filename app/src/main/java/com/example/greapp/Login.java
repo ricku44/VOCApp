@@ -344,10 +344,10 @@ public class Login extends AppCompatActivity implements TextWatcher {
         if(user!=null) {
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-            boolean previouslyStarted3 = prefs.getBoolean(getString(R.string.pref_previously_started3), false);
+            boolean previouslyStarted3 = prefs.getBoolean(getString(R.string.firstlogin1), false);
             if (!previouslyStarted3) {
                 SharedPreferences.Editor edit = prefs.edit();
-                edit.putBoolean(getString(R.string.pref_previously_started3), Boolean.TRUE);
+                edit.putBoolean(getString(R.string.firstlogin1), Boolean.TRUE);
                 edit.apply();
 
                 storehelper s = new storehelper();
@@ -383,10 +383,10 @@ public class Login extends AppCompatActivity implements TextWatcher {
                             if(user!=null) {
 
                                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                                boolean previouslyStarted3 = prefs.getBoolean(getString(R.string.pref_previously_started3), false);
-                                if (!previouslyStarted3) {
+                                boolean previouslyStarted4 = prefs.getBoolean(getString(R.string.firstlogin2), false);
+                                if (!previouslyStarted4) {
                                     SharedPreferences.Editor edit = prefs.edit();
-                                    edit.putBoolean(getString(R.string.pref_previously_started3), Boolean.TRUE);
+                                    edit.putBoolean(getString(R.string.firstlogin2), Boolean.TRUE);
                                     edit.apply();
 
                                     storehelper s = new storehelper();
@@ -442,11 +442,9 @@ public class Login extends AppCompatActivity implements TextWatcher {
             case STATE_CODE_SENT:
 
                 Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        progressDoalog.dismiss();
-                        custom_dialog.show();
-                    }
+                handler.postDelayed(() -> {
+                    progressDoalog.dismiss();
+                    custom_dialog.show();
                 }, 10000);
                 break;
             case STATE_VERIFY_FAILED:

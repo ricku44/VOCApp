@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -83,13 +84,13 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
             public void onOverlayPermissionGranted() {
                 unlockTrigger = new UnlockTrigger();
                 registerReceiver(unlockTrigger, new IntentFilter("android.intent.action.USER_PRESENT"));
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
                 if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.Q) {
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                    boolean previouslyStarted1 = prefs.getBoolean(getString(R.string.pref_previously_started1), false);
-                    if (!previouslyStarted1) {
+                    boolean previouslyStarted1 = prefs.getBoolean(getString(R.string.firsthome1), true);
+                    if (previouslyStarted1) {
                         SharedPreferences.Editor edit = prefs.edit();
-                        edit.putBoolean(getString(R.string.pref_previously_started1), Boolean.TRUE);
+                        edit.putBoolean(getString(R.string.firsthome1), Boolean.FALSE);
                         edit.apply();
 
                         Intent intent = new Intent();
@@ -130,8 +131,8 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
         }
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        boolean previouslyStarted2 = prefs.getBoolean(getString(R.string.pref_previously_started2), false);
-        if (!previouslyStarted2 && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+        boolean previouslyStarted2 = prefs.getBoolean(getString(R.string.firsthome2), true);
+        if (previouslyStarted2 && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
 
             builder = new AlertDialog.Builder(this);
 
@@ -140,7 +141,7 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
                 .setPositiveButton("Proceed", (dialog, id) -> {
 
                    SharedPreferences.Editor edit = prefs.edit();
-                   edit.putBoolean(getString(R.string.pref_previously_started2), Boolean.TRUE);
+                   edit.putBoolean(getString(R.string.firsthome2), Boolean.FALSE);
                    edit.apply();
 
                    Intent intent = new Intent();

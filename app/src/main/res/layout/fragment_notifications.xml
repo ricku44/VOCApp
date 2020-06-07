@@ -13,7 +13,7 @@
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textSize="60sp"
-        android:text="Shubhankar ye sab tum karega bsdk"
+        android:text="Shubhankar ye sab tum karega"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

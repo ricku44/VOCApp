@@ -1,21 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:textColor="#ffffff"
-        android:textSize="20dp"
-        android:text="GRE EXAM DATE \nGRE PATTERN\n"/>
 
-    <Button
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:layout_height="250dp"
+        app:cardMaxElevation="40dp"
+        app:cardBackgroundColor="#772d59be"
+        app:cardCornerRadius="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:text="Basic Plan"/>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/ic_face_black_24dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/sdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start Date: "
+                android:textSize="22sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/sdate"
+                android:text="10th Oct 2020"
+                android:textSize="20sp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_gravity="bottom">
+
+            <TextView
+                android:id="@+id/sdate2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time Remaining: "
+                android:textSize="22sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/sdate2"
+                android:text="Unlimited"
+                android:textSize="20sp"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card_view"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view3"
+            android:layout_width="0dp"
+            android:layout_margin="20dp"
+            android:layout_height="wrap_content"
+            app:cardMaxElevation="40dp"
+            app:cardBackgroundColor="#77a12323"
+            android:layout_weight="1"
+            app:cardCornerRadius="20dp">
+
+            <TextView
+                android:id="@+id/prep"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="20dp"
+                android:textSize="25sp"
+                android:gravity="center"
+                android:text="GRE"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view4"
+            android:layout_width="0dp"
+            android:layout_margin="20dp"
+            android:layout_height="wrap_content"
+            app:cardMaxElevation="40dp"
+            android:layout_weight="2"
+            app:cardBackgroundColor="#77dbe036"
+            android:layout_below="@+id/card_view"
+            android:layout_alignParentEnd="true"
+            app:cardCornerRadius="20dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp">
+
+                <TextView
+                    android:id="@+id/examdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center"
+                    android:text="Exam Date: "
+                    android:textSize="25sp" />
+
+
+                <TextView
+                    android:id="@+id/examdate2"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/examdate"
+                    android:gravity="center"
+                    android:text="10/10/2020"
+                    android:textSize="25sp" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view2"
+        android:layout_width="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_height="wrap_content"
+        app:cardMaxElevation="40dp"
+        app:cardBackgroundColor="#7734b349"
+        android:layout_below="@+id/ll1"
+        app:cardCornerRadius="20dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_gravity="bottom">
+
+            <TextView
+                android:id="@+id/mode"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:textSize="25sp"
+                android:layout_marginEnd="5dp"
+                android:gravity="center_vertical"
+                android:text="Dark Mode "/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="75dp"
+                android:layout_toEndOf="@+id/mode"
+                android:src="@drawable/com_facebook_send_button_icon"/>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/Button1"
         android:layout_width="wrap_content"
+        android:layout_margin="20dp"
         android:layout_height="wrap_content"
-        android:text="Go to Settings"/>
+        app:cardMaxElevation="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/ll1"
+        app:cardBackgroundColor="#77BB8210"
+        app:cardCornerRadius="20dp">
 
-</LinearLayout>
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_settings_black_24dp"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</RelativeLayout>
