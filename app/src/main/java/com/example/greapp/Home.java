@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
@@ -20,18 +21,23 @@ import android.provider.Settings;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
+import me.ibrahimsn.lib.OnItemSelectedListener;
+import me.ibrahimsn.lib.SmoothBottomBar;
+
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
-public class Home extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+public class Home extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private ArrayList<GradientDrawable> clrs = new ArrayList<>();
@@ -40,10 +46,11 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
     private ArrayList<String> btns = new ArrayList<>();
     private OverlayHelper overlayHelper;
     private UnlockTrigger unlockTrigger;
-    BottomNavigationView nav;
+    SmoothBottomBar nav;
     FragmentManager manager;
     public static TextToSpeech t1 = null;
     AlertDialog.Builder builder;
+    private int previousView=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +62,17 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
 
         nav = findViewById(R.id.nav_view);
         manager = getSupportFragmentManager();
-
-        nav.setElevation(0);
         manager.beginTransaction().replace(R.id.nav_host_fragment, new HomeFragment()).commit();
-        BottomNavigationViewHelper.changePosition(nav, 0);
-        nav.setOnNavigationItemSelectedListener(this);
+
+        nav.setOnItemSelectedListener(this::onNavigationItemSelected);
+
+        nav.setOnItemReselectedListener(this::onNavigationItemSelected);
 
 
-        GradientDrawable gd = new GradientDrawable(
-                GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[]{0xFF181d27, 0xFF0c0c0c});
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{0xFF181d27, 0xFF0c0c0c});
         gd.setCornerRadius(0f);
 
-        getWindow().getDecorView().setBackground(gd);
-
+        //getWindow().getDecorView().setBackground(gd);
 
         changeStatusBarColor();
 
@@ -217,26 +221,32 @@ public class Home extends AppCompatActivity implements BottomNavigationView.OnNa
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()) {
-            case R.id.navigation_home:
-                BottomNavigationViewHelper.changePosition(nav, 0);
-                manager.beginTransaction().replace(R.id.nav_host_fragment, new HomeFragment()).commit();
+    public boolean onNavigationItemSelected(int i) {
+
+        switch (i) {
+            case 0:
+                if(previousView!=0)
+                    manager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.nav_host_fragment, new HomeFragment()).commit();
                 break;
-            case R.id.navigation_dashboard:
-                BottomNavigationViewHelper.changePosition(nav, 1);
-                manager.beginTransaction().replace(R.id.nav_host_fragment, new DashboardFragment()).commit();
+            case 1:
+                if(previousView<1)
+                    manager.beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.nav_host_fragment, new DashboardFragment()).commit();
+                else if(previousView>1)
+                    manager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.nav_host_fragment, new DashboardFragment()).commit();
                 break;
-            case R.id.navigation_notifications:
-                BottomNavigationViewHelper.changePosition(nav, 2);
-                manager.beginTransaction().replace(R.id.nav_host_fragment, new NotificationsFragment()).commit();
+            case 2:
+                if(previousView!=2)
+                    manager.beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.nav_host_fragment, new NotificationsFragment()).commit();
                 break;
         }
 
-        return false;
+        previousView = i;
+        return true;
     }
 
 }
