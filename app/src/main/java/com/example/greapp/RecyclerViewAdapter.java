@@ -20,24 +20,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private static final String TAG = "RecyclerViewAdapter";
-
-    //vars
     private ArrayList<String> ids;
     private ArrayList<String> texts;
     private ArrayList<String> buttons;
     private ArrayList<GradientDrawable> clrs;
     private Context mContext;
+    private float props;
 
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> iDs,
-                               ArrayList<String> texTs,
-                               ArrayList<String> butTons, ArrayList<GradientDrawable> clRs) {
+    public RecyclerViewAdapter(Context context, ArrayList<String> iDs,ArrayList<String> texTs, ArrayList<String> butTons, ArrayList<GradientDrawable> clRs, Float prop) {
         ids = iDs;
         texts = texTs;
         buttons = butTons;
         clrs = clRs;
         mContext = context;
+        props=prop;
     }
 
     @NonNull
@@ -59,12 +56,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Log.d(TAG, "onBindViewHolder: called.");
 
-        if(holder.getItemViewType()==0) {
-            Log.d("c","c");
-        }
-        else {
+        if(holder.getItemViewType()!=0) {
+
+            if(props<1.8f) {
+                holder.txtid.setTextSize(20f);
+                holder.txttext.setTextSize(20f);
+                holder.txttext.setEms(6);
+                holder.btnbtn.setTextSize(12f);
+            }
+
             holder.crdv.setBackground(clrs.get(position - 1));
             holder.txtid.setText(ids.get(position - 1));
             holder.txttext.setText(texts.get(position - 1));
@@ -80,9 +81,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
+        if (position == 0)
             return 0;
-        } else return 1;
+        else return 1;
     }
 
 

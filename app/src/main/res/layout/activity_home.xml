@@ -8,35 +8,29 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/nav_view"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/nav_view"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:defaultNavHost="true" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
+        android:layout_margin="30dp"
+        app:backgroundColor="#00ffffff"
+        app:textColor="#000000"
+        app:iconTint="#7D7D7D"
+        app:iconTintActive="#000000"
+        app:textSize="16sp"
+        app:iconSize="22dp"
+        app:indicatorColor="#225342a7"
+        app:itemFontFamily="@font/gilroy_regular"
         android:layout_alignParentBottom="true"
-        android:paddingStart="60dp"
-        android:paddingEnd="40dp"
-        android:layout_marginBottom="50dp"
-        android:background="#00000000"
-        app:labelVisibilityMode="labeled"
-        app:itemBackground="?attr/selectableItemBackground"
-        android:foreground="?attr/selectableItemBackground"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
         app:menu="@menu/bottom_nav_menu" />
-
 
 </RelativeLayout>
 
