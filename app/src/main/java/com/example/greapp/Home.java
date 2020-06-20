@@ -49,7 +49,6 @@ public class Home extends AppCompatActivity {
     SmoothBottomBar nav;
     FragmentManager manager;
     public static TextToSpeech t1 = null;
-    AlertDialog.Builder builder;
     private int previousView=0;
 
     @Override
@@ -88,31 +87,6 @@ public class Home extends AppCompatActivity {
             public void onOverlayPermissionGranted() {
                 unlockTrigger = new UnlockTrigger();
                 registerReceiver(unlockTrigger, new IntentFilter("android.intent.action.USER_PRESENT"));
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-
-                if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.Q) {
-                    boolean previouslyStarted1 = prefs.getBoolean(getString(R.string.firsthome1), true);
-                    if (previouslyStarted1) {
-                        SharedPreferences.Editor edit = prefs.edit();
-                        edit.putBoolean(getString(R.string.firsthome1), Boolean.FALSE);
-                        edit.apply();
-
-                        Intent intent = new Intent();
-
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                            intent.setAction(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
-                            intent.putExtra(Settings.EXTRA_APP_PACKAGE, getApplicationContext().getPackageName());
-                            intent.putExtra(Settings.EXTRA_CHANNEL_ID, "com.example.GreApp");
-                        } else {
-                            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
-                            intent.putExtra("app_package", getApplicationContext().getPackageName());
-                            intent.putExtra("app_uid", getApplicationContext().getApplicationInfo().uid);
-                        }
-
-                        startActivity(intent);
-                        startService(new Intent(getApplicationContext(), InstOverlay.class));
-                    }
-                }
             }
 
             @Override
@@ -132,37 +106,6 @@ public class Home extends AppCompatActivity {
                     "Provide overlay permissions for this app to work",
                     "Enable",
                     "Cancel");
-        }
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        boolean previouslyStarted2 = prefs.getBoolean(getString(R.string.firsthome2), true);
-        if (previouslyStarted2 && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-
-            builder = new AlertDialog.Builder(this);
-
-            builder.setMessage("Please disable the notification for better experience.")
-                .setCancelable(false)
-                .setPositiveButton("Proceed", (dialog, id) -> {
-
-                   SharedPreferences.Editor edit = prefs.edit();
-                   edit.putBoolean(getString(R.string.firsthome2), Boolean.FALSE);
-                   edit.apply();
-
-                   Intent intent = new Intent();
-
-                   intent.setAction(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
-                   intent.putExtra(Settings.EXTRA_APP_PACKAGE, getApplicationContext().getPackageName());
-                   intent.putExtra(Settings.EXTRA_CHANNEL_ID, "com.example.GreApp");
-
-                   startActivity(intent);
-                })
-                .setNegativeButton("Cancel", (dialog, id) -> {
-                   dialog.cancel();
-                });
-            
-            AlertDialog alert = builder.create();
-            alert.setTitle("Next Steps");
-            alert.show();
         }
     }
 

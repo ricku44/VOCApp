@@ -75,15 +75,7 @@ public class Profile extends AppCompatActivity {
 
         });
 
-        db.collection(user.getUid()).document("Phone").get().addOnCompleteListener(task -> {
-            if(task.isSuccessful())
-            {
-                DocumentSnapshot documnet = task.getResult();
-                pno.setText(documnet.getData().get("1").toString());
-
-            }
-
-        });
+        pno.setText(user.getPhoneNumber());
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
