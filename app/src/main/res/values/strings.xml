@@ -46,7 +46,6 @@
     <string name="firstlogin1">false</string>
     <string name="firstlogin2">false</string>
     <string name="firsthome1">false</string>
-    <string name="firsthome2">false</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->

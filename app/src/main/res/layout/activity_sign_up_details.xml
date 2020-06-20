@@ -1,121 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:padding="20dp">
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center_vertical"
+        android:layout_above="@+id/lld">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_height="125dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            app:cardBackgroundColor="#fece2f"
-            app:cardElevation="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="welcome aboard"
+            android:fontFamily="@font/gilroy_regular"
+            android:textColor="#3b3b3b"
+            android:textSize="28dp" />
 
-            <RelativeLayout
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:padding="5dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-                <android.widget.TextView
-                    android:id="@+id/score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/aldrich"
-                    android:includeFontPadding="false"
-                    android:textStyle="bold"
-                    android:text="Welcome Aboard"
-                    android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="vocapp "
+                android:fontFamily="@font/gilroy_bold"
+                android:textColor="#5240ac"
+                android:textSize="28dp" />
 
-                <android.widget.TextView
-                    android:id="@+id/payment_desc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/score"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/aldrich"
-                    android:includeFontPadding="false"
-                    android:text="Please provide the details"
-                    android:textStyle="bold"
-                    android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="listener!"
+                android:fontFamily="@font/gilroy_regular"
+                android:textColor="#3b3b3b"
+                android:textSize="28dp" />
 
-            </RelativeLayout>
-
-
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/lld"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_centerInParent="true"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp" >
 
         <com.google.android.material.textfield.TextInputLayout
-            android:hint="Full Name"
-            android:id="@+id/full_name"
-            android:paddingTop="20dp"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_person_outline_black_24dp"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/galindo" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:hint="Email address"
-            android:id="@+id/email"
-            android:paddingTop="20dp"
-            android:layout_below="@+id/full_name"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/emailadd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_mail_outline_black_24dp"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/aldrich" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:hint="Mobile No"
-            android:paddingTop="20dp"
+            android:id="@+id/input_layout_named"
             android:layout_width="match_parent"
-            android:layout_below="@+id/email"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:drawableStart="@drawable/ic_call_24px"
-                android:drawablePadding="10dp"
-                android:id="@+id/phn_no"
+            <EditText
+                android:id="@+id/input_named"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent" />
-
+                android:singleLine="true"
+                android:hint="Full Name" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </RelativeLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_emaild"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <android.widget.Button
-        android:id="@+id/edit_save"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:text="Continue"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_marginLeft="160dp"/>
-</LinearLayout>
+            <EditText
+                android:id="@+id/input_emaild"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:hint="Email" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_passwordd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/input_passwordd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="15"
+                android:inputType="phone"
+                android:hint="Phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_signupd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/circle_bg1"
+            android:text="Proceed"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/skipd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:text="Skip"
+        android:layout_centerHorizontal="true"
+        android:textAllCaps="false"
+        android:layout_below="@+id/lld"/>
+
+</RelativeLayout>
