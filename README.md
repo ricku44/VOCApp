@@ -17,13 +17,13 @@ Progressive Graphical Report
 </tr>
 <tr>
 <td>
-![alt text](https://github.com/smshubhankar1950/GREApp/blob/dynamic/mobile-1.png?raw=true)
+<img src="https://github.com/smshubhankar1950/GREApp/blob/dynamic/mobile-1.png" />
 </td>
 <td>
-![alt text](https://github.com/smshubhankar1950/GREApp/blob/dynamic/mobile-2.png?raw=true)
+<img src="https://github.com/smshubhankar1950/GREApp/blob/dynamic/mobile-2.png" />
 </td>
 <td>
-![alt text](https://github.com/smshubhankar1950/GREApp/blob/dynamic/mobile-3.png?raw=true)
+<img src="https://github.com/smshubhankar1950/GREApp/blob/dynamic/mobile-3.png" />
 </td>
 </tr>
 </table>
