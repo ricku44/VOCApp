@@ -12,7 +12,7 @@ Pixel Perfect UI/UX
 Overlay when you unlock your device
 </th>
 <th>
-Progressive Graphical Report
+Progressive Graphical <br/>Report
 </th>
 </tr>
 <tr>
