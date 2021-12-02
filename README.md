@@ -23,7 +23,7 @@ Progressive Graphical Report
 <img src="https://github.com/smshubhankar1950/GREApp/blob/dynamic/mobile-2.png?raw=true" width="300">
 </td>
 <td>
-<img src="https://github.com/smshubhankar1950/GREApp/blob/dynamic/mobile-3.png?raw=true" width="300">
+<img src="https://github.com/smshubhankar1950/GREApp/blob/dynamic/mobile-3.png?raw=true" width="280">
 </td>
 </tr>
 </table>
