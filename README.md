@@ -17,13 +17,13 @@ Progressive Graphical <br/>Report
 </tr>
 <tr>
 <td>
-<img src="https://github.com/ricku44/VOCApp/blob/dynamic/mobile-1.png" />
+<img src="https://github.com/ricku44/VOCApp/blob/main/mobile-1.png" />
 </td>
 <td>
-<img src="https://github.com/ricku44/VOCApp/blob/dynamic/mobile-2.png" />
+<img src="https://github.com/ricku44/VOCApp/blob/main/mobile-2.png" />
 </td>
 <td>
-<img src="https://github.com/ricku44/VOCApp/blob/dynamic/mobile-3.png" />
+<img src="https://github.com/ricku44/VOCApp/blob/main/mobile-3.png" />
 </td>
 </tr>
 </table>
